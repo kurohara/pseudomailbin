@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class MailBox extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'protocol',
+        'address',
+        'port',
+        'username',
+        'password'
+    ];
 }

@@ -457,6 +457,17 @@ Ensure the default browser behavior of the `hidden` attribute.
     max-width: 1536px;
   }
 }
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
 .invisible {
   visibility: hidden;
 }
@@ -471,6 +482,21 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .right-0 {
   right: 0px;
+}
+.z-\[1000\] {
+  z-index: 1000;
+}
+.clear-left {
+  clear: left;
+}
+.clear-right {
+  clear: right;
+}
+.clear-both {
+  clear: both;
+}
+.m-2 {
+  margin: 0.5rem;
 }
 .mx-auto {
   margin-left: auto;
@@ -503,6 +529,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .-mt-px {
   margin-top: -1px;
 }
+.mb-6 {
+  margin-bottom: 1.5rem;
+}
 .flex {
   display: flex;
 }
@@ -524,23 +553,37 @@ Ensure the default browser behavior of the `hidden` attribute.
 .min-h-screen {
   min-height: 100vh;
 }
-.w-5 {
-  width: 1.25rem;
+.w-12 {
+  width: 3rem;
 }
 .w-8 {
   width: 2rem;
 }
+.w-5 {
+  width: 1.25rem;
+}
 .w-auto {
   width: auto;
 }
-.w-10 {
-  width: 2.5rem;
+.w-24 {
+  width: 6rem;
 }
-.w-12 {
-  width: 3rem;
+.w-96 {
+  width: 24rem;
 }
 .max-w-6xl {
   max-width: 72rem;
+}
+.shrink {
+  flex-shrink: 1;
+}
+.columns-1 {
+  -moz-columns: 1;
+       columns: 1;
+}
+.break-after-all {
+  -moz-column-break-after: all;
+       break-after: all;
 }
 .grid-cols-1 {
   grid-template-columns: repeat(1, minmax(0, 1fr));
@@ -551,8 +594,23 @@ Ensure the default browser behavior of the `hidden` attribute.
 .justify-center {
   justify-content: center;
 }
+.justify-between {
+  justify-content: space-between;
+}
+.justify-items-end {
+  justify-items: end;
+}
 .overflow-hidden {
   overflow: hidden;
+}
+.overflow-y-auto {
+  overflow-y: auto;
+}
+.overflow-x-hidden {
+  overflow-x: hidden;
+}
+.rounded-sm {
+  border-radius: 0.125rem;
 }
 .rounded-b {
   border-bottom-right-radius: 0.25rem;
@@ -560,6 +618,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .border-2 {
   border-width: 2px;
+}
+.border-0 {
+  border-width: 0px;
 }
 .border-t {
   border-top-width: 1px;
@@ -576,8 +637,27 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-bg-opacity: 1;
   background-color: rgb(243 244 246 / var(--tw-bg-opacity));
 }
+.bg-gray-700 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(55 65 81 / var(--tw-bg-opacity));
+}
 .p-6 {
   padding: 1.5rem;
+}
+.p-3 {
+  padding: 0.75rem;
+}
+.p-1 {
+  padding: 0.25rem;
+}
+.p-0 {
+  padding: 0px;
+}
+.p-10 {
+  padding: 2.5rem;
+}
+.p-2 {
+  padding: 0.5rem;
 }
 .py-4 {
   padding-top: 1rem;
@@ -586,6 +666,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 .px-6 {
   padding-left: 1.5rem;
   padding-right: 1.5rem;
+}
+.px-3 {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
 }
 .pt-8 {
   padding-top: 2rem;
@@ -642,6 +726,12 @@ Ensure the default browser behavior of the `hidden` attribute.
 .antialiased {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+.opacity-0 {
+  opacity: 0;
+}
+.opacity-100 {
+  opacity: 1;
 }
 .shadow {
   --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
@@ -705,13 +795,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   visibility: visible;
 }
   
-  .peer:checked ~ .peer-checked\:invisible {
-  visibility: hidden;
+  .peer:checked ~ .peer-checked\:z-50 {
+  z-index: 50;
 }
   
-  .peer:checked ~ .peer-checked\:bg-black {
-  --tw-bg-opacity: 1;
-  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
+  .peer:checked ~ .peer-checked\:block {
+  display: block;
+}
+  
+  .peer:checked ~ .peer-checked\:flex {
+  display: flex;
 }
   
   @media (prefers-color-scheme: dark) {
@@ -757,6 +850,10 @@ Ensure the default browser behavior of the `hidden` attribute.
     visibility: hidden;
   }
 
+  .sm\:static {
+    position: static;
+  }
+
   .sm\:ml-0 {
     margin-left: 0px;
   }
@@ -765,8 +862,8 @@ Ensure the default browser behavior of the `hidden` attribute.
     display: block;
   }
 
-  .sm\:hidden {
-    display: none;
+  .sm\:flex {
+    display: flex;
   }
 
   .sm\:h-20 {
@@ -775,6 +872,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 
   .sm\:w-24 {
     width: 6rem;
+  }
+
+  .sm\:columns-6 {
+    -moz-columns: 6;
+         columns: 6;
   }
 
   .sm\:items-center {
@@ -793,12 +895,8 @@ Ensure the default browser behavior of the `hidden` attribute.
     border-radius: 0.5rem;
   }
 
-  .sm\:rounded-sm {
-    border-radius: 0.125rem;
-  }
-
-  .sm\:border-2 {
-    border-width: 2px;
+  .sm\:p-6 {
+    padding: 1.5rem;
   }
 
   .sm\:px-6 {

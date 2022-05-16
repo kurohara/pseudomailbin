@@ -15,9 +15,11 @@ return new class extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
-            $table->string('subject');
-            $table->string('slug');
-            $table->text('body');
+            $table->foreignId('mail_box_id')->constrained()->onDelete('cascade');
+            $table->string('header')->nullable(false);
+            $table->string('subject')->nullable(false);
+            $table->string('slug')->nullable(false);
+            $table->text('body')->nullable(false);
             $table->decimal('value', 5, 0);
             $table->timestamps();
         });

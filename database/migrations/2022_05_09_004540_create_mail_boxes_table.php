@@ -15,6 +15,12 @@ return new class extends Migration
     {
         Schema::create('mail_boxes', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->string('protocol')->nullable(false);
+            $table->string('address')->nullable(false);
+            $table->integer('port')->nullable(false);
+            $table->string('username')->nullable(false);
+            $table->string('password')->nullable(false);
             $table->timestamps();
         });
     }
