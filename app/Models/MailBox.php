@@ -15,4 +15,10 @@ class MailBox extends Model
         'username',
         'password'
     ];
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+    }
+    
 }

@@ -15,23 +15,24 @@
     <input type="checkbox" name="" id="hamburger" class="peer hidden"/>
     <nav class="hidden sm:flex border-2 p-2 peer-checked:flex justify-between mb-6 fixed sm:static z-[1000] bg-white">
         <ul class="items-center columns-1 sm:columns-6">
-            <li class="p-0"><a href="{{route('about')}}">About</a></li>
+            <li class="p-0 hover:bg-blue-300"><a href="{{route('about')}}" class="bg-inherit">{{__('About')}}</a></li>
             @guest
-                <li class="p-0"><a href="{{route('register')}}">Register</a></li>
-                <li class="p-0"><a href="{{route('login')}}">Login</a></li>
+                <li class="p-0 hover:bg-blue-300"><a href="{{route('register')}}" class="bg-inherit">{{__('Register')}}</a></li>
+                <li class="p-0 hover:bg-blue-300"><a href="{{route('login')}}" class="bg-inherit">{{__('Login')}}</a></li>
             @endguest
             @auth
-                <li class="p-0">
-                    <form action="{{route('logout')}}" method="post">
+                <li class="p-0 hover:bg-blue-300">
+                    <form action="{{route('logout')}}" method="post" class="bg-inherit">
                         @csrf
-                        <button type="submit" class="border-0">Logout</button>
+                        <button type="submit" class="border-0 bg-inherit">{{__('Logout')}}</button>
                     </form>
                 </li>
+                <li class="p-0 hover:bg-blue-300"><a href="{{route('settings')}}" class="bg-inherit">{{__('Settings')}}</a></li>
+                <li class="p-0 hover:bg-blue-300"><a href="{{route('mailbox')}}" class="bg-inherit">{{__('MailBox')}}</a></li>
             @endauth
-            <li class="p-0">Settings</li>
-            <li class="p-0">MailBox</li>
         </ul>
     </nav>
+    <h1 class="pl-3 border-b-2 mb-3">@yield('title')</h1>
     @yield('content')
 </body>
 </html>
