@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
 </head>
 <body>
+    <script src="{{asset('js/index.js')}}"></script>
     <div class="sm:w-24 w-12"><x-fluentui-mail-inbox-all-24 /></div>
     <label for="hamburger">
         <x-radix-hamburger-menu class="sm:invisible w-8" />

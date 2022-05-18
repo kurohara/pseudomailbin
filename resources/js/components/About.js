@@ -1,11 +1,9 @@
-import {Link} from 'react-router-dom'
+import React from 'react'
 
-const About = () => {
+function About() {
   return (
     <div>
-      <h4>Version 1.0</h4>
-      {/* <a href="/">Back</a> */}
-      <Link to="/">Back</Link>
+      About this software
     </div>
   )
 }

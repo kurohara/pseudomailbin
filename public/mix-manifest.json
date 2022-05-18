@@ -1,4 +1,6 @@
 {
     "/js/index.js": "/js/index.js",
+    "/js/about.js": "/js/about.js",
+    "/js/settings.js": "/js/settings.js",
     "/css/App.css": "/css/App.css"
 }
