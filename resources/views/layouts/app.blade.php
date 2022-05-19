@@ -8,6 +8,18 @@
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
 </head>
 <body>
+    <script>
+        function setGlobal(key, value) {
+            if (!window['myappglobal'])
+                window['myappglobal'] = {}
+
+            window.myappglobal[key] = value
+        }
+
+        function myGlobal(key) {
+            return window.myappglobal[key]
+        }
+    </script>
     <script src="{{asset('js/index.js')}}"></script>
     <div class="sm:w-24 w-12"><x-fluentui-mail-inbox-all-24 /></div>
     <label for="hamburger">

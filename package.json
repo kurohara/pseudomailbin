@@ -25,6 +25,7 @@
     },
     "dependencies": {
         "prop-types": "^15.8.1",
+        "react-i18next": "^11.16.9",
         "react-icons": "^4.3.1",
         "react-router-dom": "^6.3.0"
     }
