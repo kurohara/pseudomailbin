@@ -4,6 +4,10 @@ LaravelとReactの学習用に立ち上げ。
 開発者がメール送信のテストに使用するサイト、[mailtrap.io](https://mailtrap.io) を真似てみた。  
 学習用なので、実用まで持っていくかどうかは未定。  
 
+* Laravel
+* React
+* Tailwindcss
+
 #### 使用方法
 ```shell
 npm install
