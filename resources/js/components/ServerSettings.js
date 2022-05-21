@@ -8,12 +8,12 @@ const ServerSettings = ({address, port}) => {
     return (
         <div className="block w-full p-2 px-2">
             <div className="block w-5/6 m-2">
-            <CopyText 
-                id='serveraddress' 
-                label={t('Server Address')}
-                cb={() => {} }  
-                initialValue={address}
-                 />
+                <CopyText 
+                    id='serveraddress' 
+                    label={t('Server Address')}
+                    cb={() => {} }  
+                    initialValue={address}
+                    />
             </div>
             <div className="block w-5/6 m-2">
                 <CopyText 

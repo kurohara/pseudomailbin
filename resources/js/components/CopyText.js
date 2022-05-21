@@ -1,9 +1,7 @@
 import { FaClipboardCheck } from 'react-icons/fa'
 import {useState} from 'react'
 
-const CopyText = ({id, label, cb, initialValue}) => {
-    const [value, setValue] = useState(initialValue);
-    cb(setValue);
+const CopyText = ({id, label, value}) => {
     const cid = "__" + id
     const onClick = (e) => {
         e.preventDefault()
@@ -29,7 +27,8 @@ const CopyText = ({id, label, cb, initialValue}) => {
 }
 
 CopyText.defaultProps = {
-    'initialValue': '',
-    'cb': () => {}
+    id: 'copytext',
+    label: 'copytext',
+    value: ''
 }
 export default CopyText
