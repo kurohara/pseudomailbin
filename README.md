@@ -3,6 +3,27 @@
 LaravelとReactの学習用に立ち上げ。  
 開発者がメール送信のテストに使用するサイト、mailtrap.io を真似てみた。  
 学習用なので、実用まで持っていくかどうかは未定。  
+#### 使用方法
+```shell
+npm install
+touch database/database.sqlite
+egrep -v '^DB' .env.example > .env
+echo 'DB_CONNECTION=sqlite' >> .env
+php artisan migrate
+```
+
+(編集する場合)
+```shell
+npm run watch
+```
+
+試験用サーバ立ち上げ
+```shell
+php artisan serve
+```
+
+ブラウザアクセス: http://localhost:8000
+(自動リロードなし)
 
 #### 進捗(2022/05/21): 
 * Reactのみで一旦簡単なサンプルアプリ作成(tag: react_crash_cource)
