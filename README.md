@@ -1,8 +1,9 @@
 # pseudomailbin
 
 LaravelとReactの学習用に立ち上げ。  
-開発者がメール送信のテストに使用するサイト、mailtrap.io を真似てみた。  
+開発者がメール送信のテストに使用するサイト、[mailtrap.io](https://mailtrap.io) を真似てみた。  
 学習用なので、実用まで持っていくかどうかは未定。  
+
 #### 使用方法
 ```shell
 npm install
@@ -12,7 +13,7 @@ echo 'DB_CONNECTION=sqlite' >> .env
 php artisan migrate
 ```
 
-(編集する場合)
+(編集する場合、バックグラウンドで)
 ```shell
 npm run watch
 ```
@@ -29,15 +30,15 @@ Register 画面で最初にユーザ登録を行う。
 
 #### 進捗(2022/05/21): 
 * Reactのみで一旦簡単なサンプルアプリ作成(tag: react_crash_cource)
-* 一旦Laravel(blade)で画面の大枠を作成
+* 一度リセットして、一旦Laravel(blade)で画面の大枠を作成
 * 画面遷移はそのままで各ページの必要な部分だけReact化
-    -> 設定ページ作成中
+  * 設定ページ作成中
 
-各ページ上にReactのComponentを載せるやり方で作ってみたが、全体をReact化するのに比べてメリットがあるのか不明。
-
-BladeとLaravelの画面遷移を残していると、Reactから関数を渡すのに下の`setGlobal`のようないらぬ工夫が必要になってくる。
-laravel mix を使用するとexportが出来ないので。
-このあたり他にうまい方法があれば良いが。
+各ページ上にReactのComponentを載せるやり方で作ってみたが、全体をReact化するのに比べてメリットがあるのか不明。  
+  
+BladeとLaravelの画面遷移を残していると、Reactから関数を渡すのに下の`setGlobal`のようないらぬ工夫が必要になってくる。　 
+laravel mix を使用するとexportが出来ないので。  
+このあたり他にうまい方法があれば良いが。  
 
 ```JavaScript
 import React from 'react';
