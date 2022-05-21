@@ -25,6 +25,8 @@ php artisan serve
 ブラウザアクセス: http://localhost:8000
 (自動リロードなし)
 
+Register 画面で最初にユーザ登録を行う。
+
 #### 進捗(2022/05/21): 
 * Reactのみで一旦簡単なサンプルアプリ作成(tag: react_crash_cource)
 * 一旦Laravel(blade)で画面の大枠を作成
