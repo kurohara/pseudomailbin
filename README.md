@@ -1,8 +1,8 @@
 # pseudomailbin
 
-LaravelとReactの学習用に立ち上げ。  
+LaravelとReactのサンプル用として立ち上げ。  
 開発者がメール送信のテストに使用するサイト、[mailtrap.io](https://mailtrap.io) を真似てみた。  
-学習用なので、実用まで持っていくかどうかは未定。  
+技術サンプル用なので、実用まで持っていくかどうかは未定。  
 
 * Laravel
 * React
