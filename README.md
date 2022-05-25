@@ -17,6 +17,12 @@ echo 'DB_CONNECTION=sqlite' >> .env
 php artisan migrate
 ```
 
+(ダミーメールボックス作成)
+```shell
+php artisan tinker
+App\Models\MailBox::factory()->times(3)->create(['user_id' => 1])
+```
+
 (編集する場合、バックグラウンドで)
 ```shell
 npm run watch
@@ -32,49 +38,22 @@ php artisan serve
 
 Register 画面で最初にユーザ登録を行う。
 
-#### 進捗(2022/05/21): 
+#### 進捗(2022/05/25): 
 * Reactのみで一旦簡単なサンプルアプリ作成(tag: react_crash_cource)
 * 一度リセットして、一旦Laravel(blade)で画面の大枠を作成
 * 画面遷移はそのままで各ページの必要な部分だけReact化
   * 設定ページ作成中
 
 各ページ上にReactのComponentを載せるやり方で作ってみたが、全体をReact化するのに比べてメリットがあるのか不明。  
-  
-BladeとLaravelの画面遷移を残していると、Reactから関数を渡すのに下の`setGlobal`のようないらぬ工夫が必要になってくる。　 
-laravel mix を使用するとexportが出来ないので。  
-このあたり他にうまい方法があれば良いが。  
 
-```JavaScript
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import MailBoxSettings from './components/MailBoxSettings'
-import ServerSetting from './components/ServerSettings'
+Laravelによる画面遷移を残しつつ、React の componentを使用するやり方を試しているが、認証で少々無駄な処理が入ってしまう。  
+Login画面でFormを使用して認証を行い、ログインすると画面遷移する仕組みの上に、ReactからAPIを使用する仕組みを追加したが、どうしても認証を2回通すやり方になってしまう。  
+1回目は api 認証を行い、その後 form をsubmitする。  
+api認証後のtokenはsessionStorageに保存。  
+form認証の結果はcookieに保存される。  
 
-function showMailBoxSettings(id, setDataCB, refreshCredentialCB, addMailBoxCB, deleteMailBoxCB, selectCB) {
-    ReactDOM.createRoot(document.getElementById(id)).render(
-        <React.StrictMode>
-            <MailBoxSettings 
-                setDataCB={setDataCB}
-                refreshCredentialCB={refreshCredentialCB} 
-                addMailBoxCB={addMailBoxCB} 
-                deleteMailBoxCB={deleteMailBoxCB} 
-                selectCB={selectCB} />
-        </React.StrictMode>
-    );
-}
-
-function showServerSettings(id, address, port) {
-    ReactDOM.createRoot(document.getElementById(id)).render(
-        <React.StrictMode>
-            <ServerSetting address={address} port={port} />
-        </React.StrictMode>
-    );
-}
-
-setGlobal('showMailBoxSettings', showMailBoxSettings)
-setGlobal('showServerSettings', showServerSettings)
-
-```
+という方法で、画面遷移とJSからのfetch()の両立をおこなった。  
+他に良い方法があれば良いが。  
 
 ### データベース
 
@@ -96,6 +75,7 @@ mail_boxes {
     string protocol
     string address
     integer port
+    string name
     string username
     string password
 }

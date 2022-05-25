@@ -1,10 +1,12 @@
 <?php
 
-use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\MessageController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\MessageController;
+use App\Http\Controllers\Api\ServerSettingsController;
+use App\Http\Controllers\Api\MailBoxSettingsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +29,10 @@ Route::group(['middleware' => ['auth:sanctum'] ], function () {
     Route::put('/messages/{id}', [MessageController::class, 'update']);
     Route::delete('/messages/{id}', [MessageController::class, 'destroy']);
     Route::post('/logout', [AuthController::class, 'logout']);
+
+    Route::get('/settings/server', [ServerSettingsController::class, 'index']);
+    Route::get('/settings/mailboxes', [MailBoxSettingsController::class, 'index']);
+
 });
 
 Route::post('/register', [AuthController::class, 'register']);

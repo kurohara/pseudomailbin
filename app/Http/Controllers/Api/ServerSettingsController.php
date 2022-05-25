@@ -1,17 +1,22 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
-use App\Models\Message;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class MessageController extends Controller
+class ServerSettingsController extends Controller
 {
+    private $serverSettings = [];
+
     public function __construct()
     {
         $this->middleware(['auth']);
+        // set dummy data
+        $this->serverSettings['serveraddress'] = 'mailserver';
+        $this->serverSettings['serverport'] = 8888;
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -20,7 +25,7 @@ class MessageController extends Controller
     public function index()
     {
         //
-        return Message::all();
+        return $this->serverSettings;
     }
 
     /**
@@ -32,14 +37,6 @@ class MessageController extends Controller
     public function store(Request $request)
     {
         //
-        $request->validate([
-            'subject' => 'required',
-            'slug' => 'required',
-            'body' => 'required',
-            'value' => 'required',
-        ]);
-
-        return Message::create($request->all());
     }
 
     /**
@@ -51,7 +48,6 @@ class MessageController extends Controller
     public function show($id)
     {
         //
-        return Message::find($id);
     }
 
     /**
@@ -64,9 +60,6 @@ class MessageController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $message = Message::find($id);
-        $message->update($request->all());
-        return $message;
     }
 
     /**
@@ -78,15 +71,5 @@ class MessageController extends Controller
     public function destroy($id)
     {
         //
-        return Message::destroy($id);
-    }
-
-    /**
-     * @param string $subject
-     * @return \Illuminate\Http\Response
-     */
-    public function search($subject)
-    {
-        return Message::where('subject', 'like', '%' . $subject . '%' )->get();
     }
 }

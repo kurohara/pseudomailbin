@@ -7,9 +7,13 @@ const SelectWithAdd = ({id, label, value, onAdd, onSelect, onDelete}) => {
         document.getElementById('add'+id).checked = false
         e.preventDefault()
     }
+    const onChange = (e) => {
+        console.log(e.target.value)
+        onSelect(e.target.value)
+    }
     return (
         <div className='block w-full'>
-            <select name={id+"select"} id={id+"select"} className="inline-block w-4/5 p-2 m-3 border-2 rounded-md" onChange={onSelect}>
+            <select name={id+"select"} id={id+"select"} className="inline-block w-4/5 p-2 m-3 border-2 rounded-md" onChange={onChange}>
                 {value.map((item, i) => (<option value={i} key={i}>{item}</option>))}
             </select>
             <label htmlFor={'add'+id} className="">

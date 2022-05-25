@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 
 class LoginController extends Controller
 {
@@ -27,6 +30,10 @@ class LoginController extends Controller
         if (!auth()->attempt($request->only('email', 'password'), $request->remember)) {
             return back()->with('status', __('Invalid credentials'));
         }
+
+        // $user = User::where('email', $request->email)->first();
+        // $token = $user->createToken('myapptoken')->plainTextToken;
+        // Cookie::queue('SANCTUM-TOKEN', $token, 5, '/', 'localhost', false, false);
 
         return redirect()->route('home');
     }

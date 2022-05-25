@@ -7,18 +7,30 @@ import RotateButton from './RotateButton'
 const MailBoxSettings = ({setDataCB, refreshCredentialCB, addMailBoxCB, deleteMailBoxCB, selectCB}) => {
     const {t, i18n} = useTranslation()
     const [rotate, setRotate] = useState(false)
-    const [data, setData] = useState({})
+    const [data, setData] = useState({
+        current: '',
+        list: [
+            // {
+            //     name: '',
+            //     username: '',
+            //     password: ''
+            // }
+        ]
+    })
 
-    console.log(setData)
     setDataCB(setData)
 
+    console.log(data)
+    
     const currentMailBox = data.current
-    const mailboxmap = data.map ? data.map : {}
+    const mailboxnames = data.list.map((e) => e.name)
     console.log(currentMailBox)
 
     let credentials = {}
     if (currentMailBox) {
-        credentials = mailboxmap[currentMailBox]
+        const current = data.list.find((value) => value.name === currentMailBox)
+
+        credentials = {userID: current.username, password: current.password}
     }
     console.log(credentials)
 
@@ -94,7 +106,7 @@ const MailBoxSettings = ({setDataCB, refreshCredentialCB, addMailBoxCB, deleteMa
     return (
         <>
             <div className="border-2 rounded-lg border-blue-600 m-3">
-                <SelectWithAdd id='' value={Object.keys(mailboxmap)} onDelete={deleteMailBoxCB} onAdd={addMailBoxCB} onSelect={selectCB}/>
+                <SelectWithAdd id='' value={mailboxnames} onDelete={deleteMailBoxCB} onAdd={addMailBoxCB} onSelect={selectCB}/>
                 <div className="block w-full">
                     <div className="inline-block w-4/5">
                         <div className="inline-block w-full mb-3 mx-3">
