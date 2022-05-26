@@ -12,13 +12,15 @@ class MailBox extends Model
         'protocol',
         'address',
         'port',
+        'name',
         'username',
-        'password'
+        'password',
+        'user_id'
     ];
 
     public function messages()
     {
         return $this->hasMany(Message::class);
     }
-    
+
 }

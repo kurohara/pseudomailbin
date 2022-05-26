@@ -34,69 +34,6 @@ const MailBoxSettings = ({setDataCB, refreshCredentialCB, addMailBoxCB, deleteMa
     }
     console.log(credentials)
 
-    // const updateData = (upddata) => {
-    //     setData(upddata)
-    //     updateCurrentMailBox(currentMailBox, upddata)
-    // }
-
-    // const updateCurrentMailBox = (mbox, target) => {
-    //     let targetdata = target ? target : data
-    //     if (! mbox in targetdata) {
-    //         if (Object.keys(targetdata).length > 0) {
-    //             mbox = Object.keys(targetdata)[0]
-    //         } else {
-    //             mbox = ''
-    //         }
-    //     }
-    //     setCurrentMailBox(mbox)
-
-    //     if (mbox !== '') {
-    //         credentails = targetdata[currentMailBox]
-    //     }
-    //     else {
-    //         credentials = {}
-    //     }
-    // }
-
-    // const switchRotate = (brotate) => {
-    //     setRotate(brotate)
-    // }
-    // const refreshCredentials = async (ev) => {
-    //     ev.preventDefault()
-    //     console.log('clicked')
-    //     switchRotate(true)
-    //     // dummy, simulate communication. 
-    //     setTimeout(() => {
-    //         let newdata = {}
-    //         newdata[currentMailBox] = {
-    //             userID: 'abcde',
-    //             password: 'testtest'
-    //         }
-    //         setData({...data, ...newdata})
-    //         switchRotate(false)
-    //     }, 1000)
-    // }
-    // const deleteCurrentMailBox = () => {
-    //     if (currentMailBox !== '') {
-    //         //
-    //         // do reset request to delete the mailbox, return if error
-    //         //
-    //         dstobj = {}
-    //         Object.keys(data).forEach((key) => {
-    //             if (key !== currentMailBox) {
-    //                 dstobj[key] = data[key]
-    //             }
-    //         })
-    //         updateData(dstobj)
-    //     }
-    // }
-    // const addMailBox = (newmailbox) => {
-    //     //
-    //     // request to add mailbox, return if error
-    //     //
-
-    // }
-
     const onRefresh = (e) => {
         e.preventDefault()
         setRotate(true)

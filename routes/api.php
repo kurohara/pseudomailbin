@@ -32,7 +32,9 @@ Route::group(['middleware' => ['auth:sanctum'] ], function () {
 
     Route::get('/settings/server', [ServerSettingsController::class, 'index']);
     Route::get('/settings/mailboxes', [MailBoxSettingsController::class, 'index']);
-
+    Route::post('/settings/mailboxes', [MailBoxSettingsController::class, 'store']);
+    Route::delete('/settings/mailboxes/{id}', [MailBoxSettingsController::class, 'destroy']);
+    Route::put('/settings/mailboxes/{id}', [MailBoxSettingsController::class, 'update']);
 });
 
 Route::post('/register', [AuthController::class, 'register']);

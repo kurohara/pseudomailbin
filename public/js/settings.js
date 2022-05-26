@@ -164,64 +164,7 @@ var MailBoxSettings = function MailBoxSettings(_ref) {
     };
   }
 
-  console.log(credentials); // const updateData = (upddata) => {
-  //     setData(upddata)
-  //     updateCurrentMailBox(currentMailBox, upddata)
-  // }
-  // const updateCurrentMailBox = (mbox, target) => {
-  //     let targetdata = target ? target : data
-  //     if (! mbox in targetdata) {
-  //         if (Object.keys(targetdata).length > 0) {
-  //             mbox = Object.keys(targetdata)[0]
-  //         } else {
-  //             mbox = ''
-  //         }
-  //     }
-  //     setCurrentMailBox(mbox)
-  //     if (mbox !== '') {
-  //         credentails = targetdata[currentMailBox]
-  //     }
-  //     else {
-  //         credentials = {}
-  //     }
-  // }
-  // const switchRotate = (brotate) => {
-  //     setRotate(brotate)
-  // }
-  // const refreshCredentials = async (ev) => {
-  //     ev.preventDefault()
-  //     console.log('clicked')
-  //     switchRotate(true)
-  //     // dummy, simulate communication. 
-  //     setTimeout(() => {
-  //         let newdata = {}
-  //         newdata[currentMailBox] = {
-  //             userID: 'abcde',
-  //             password: 'testtest'
-  //         }
-  //         setData({...data, ...newdata})
-  //         switchRotate(false)
-  //     }, 1000)
-  // }
-  // const deleteCurrentMailBox = () => {
-  //     if (currentMailBox !== '') {
-  //         //
-  //         // do reset request to delete the mailbox, return if error
-  //         //
-  //         dstobj = {}
-  //         Object.keys(data).forEach((key) => {
-  //             if (key !== currentMailBox) {
-  //                 dstobj[key] = data[key]
-  //             }
-  //         })
-  //         updateData(dstobj)
-  //     }
-  // }
-  // const addMailBox = (newmailbox) => {
-  //     //
-  //     // request to add mailbox, return if error
-  //     //
-  // }
+  console.log(credentials);
 
   var onRefresh = function onRefresh(e) {
     e.preventDefault();
@@ -377,6 +320,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 var SelectWithAdd = function SelectWithAdd(_ref) {
   var id = _ref.id,
       label = _ref.label,
@@ -392,6 +336,21 @@ var SelectWithAdd = function SelectWithAdd(_ref) {
   var closeAdd = function closeAdd(e) {
     document.getElementById('add' + id).checked = false;
     e.preventDefault();
+
+    if (e.target.id === "doApplyAdd") {
+      console.log("create mail box");
+      onAdd(document.getElementById('new' + id).value);
+    }
+  };
+
+  var closeDelete = function closeDelete(e) {
+    document.getElementById('delete' + id).checked = false;
+    e.preventDefault();
+
+    if (e.target.id === "doApplyDelete") {
+      console.log("delete mail box");
+      onDelete(document.getElementById(id + 'select').value);
+    }
   };
 
   var onChange = function onChange(e) {
@@ -412,40 +371,78 @@ var SelectWithAdd = function SelectWithAdd(_ref) {
           children: item
         }, i);
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
-      htmlFor: 'add' + id,
-      className: "",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_icons_fa__WEBPACK_IMPORTED_MODULE_2__.FaPlusCircle, {
-        className: "inline-block mt-1 w-6 active:hover:bg-blue-500"
-      })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
-      type: "checkbox",
-      name: 'add' + id,
-      id: 'add' + id,
-      className: "peer hidden"
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-      className: "hidden peer-checked:block fixed peer-checked:visible z-50 border-2 border-blue-500 bg-white m-5 p-3 rounded-md w-4/5",
+      className: "inline",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
-        htmlFor: 'new' + id,
-        className: "w-full",
-        children: label
+        htmlFor: 'add' + id,
+        className: "",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_icons_fa__WEBPACK_IMPORTED_MODULE_2__.FaPlusCircle, {
+          className: "inline-block mt-1 w-6 active:hover:bg-blue-500"
+        })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
-        type: "text",
-        name: 'new' + id,
-        id: 'new' + id,
-        className: "block w-full border-2 rounded-sm mb-3"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
-        className: "border-2 rounded-md inline-block float-right",
-        onClick: function onClick(e) {
-          return closeAdd(e);
-        },
-        children: t('Cancel')
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
-        className: "border-2 rounded-md inline-block float-right",
-        onClick: function onClick(e) {
-          closeAdd(e);
-        },
-        children: t('Create')
+        type: "checkbox",
+        name: 'add' + id,
+        id: 'add' + id,
+        className: "peer hidden"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+        className: "hidden peer-checked:block fixed peer-checked:visible z-50 border-2 border-blue-500 bg-white m-5 p-3 rounded-md w-4/5",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
+          htmlFor: 'new' + id,
+          className: "w-full",
+          children: label
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
+          type: "text",
+          name: 'new' + id,
+          id: 'new' + id,
+          className: "block w-full border-2 rounded-sm mb-3"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+          id: "doCancelAdd",
+          className: "border-2 rounded-md inline-block float-right",
+          onClick: function onClick(e) {
+            return closeAdd(e);
+          },
+          children: t('Cancel')
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+          id: "doApplyAdd",
+          className: "border-2 rounded-md inline-block float-right",
+          onClick: function onClick(e) {
+            closeAdd(e);
+          },
+          children: t('Create')
+        })]
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+      className: "inline",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
+        htmlFor: 'delete' + id,
+        className: "",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_icons_fa__WEBPACK_IMPORTED_MODULE_2__.FaMinusSquare, {
+          className: "inline-block mt-1 w-6 active:hover:bg-blue-500"
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
+        type: "checkbox",
+        name: 'delete' + id,
+        id: 'delete' + id,
+        className: "peer hidden"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+        className: "hidden peer-checked:block fixed peer-checked:visible z-50 border-2 border-blue-500 bg-white m-5 p-3 rounded-md w-4/5",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+          children: t('Delete?')
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+          id: "doCancelDelete",
+          className: "border-2 rounded-md inline-block float-right",
+          onClick: function onClick(e) {
+            return closeDelete(e);
+          },
+          children: t('Cancel')
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+          id: "doApplyDelete",
+          className: "border-2 rounded-md inline-block float-right",
+          onClick: function onClick(e) {
+            closeDelete(e);
+          },
+          children: t('Delete')
+        })]
       })]
     })]
   });
@@ -46932,17 +46929,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_MailBoxSettings__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/MailBoxSettings */ "./resources/js/components/MailBoxSettings.js");
 /* harmony import */ var _components_ServerSettings__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/ServerSettings */ "./resources/js/components/ServerSettings.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 
 
@@ -46971,7 +46980,7 @@ function showServerSettings(id, setDataCB) {
 } //
 
 
-var data = {
+var mailBoxData = {
   current: '',
   list: []
 };
@@ -46982,46 +46991,163 @@ var setMailBoxDataCB = function setMailBoxDataCB(setfunc) {
   setMailBoxDataFunc = setfunc;
 };
 
-var refreshCredentialCB = function refreshCredentialCB(finishfunc) {
-  // simulate rest api call
-  setTimeout(function () {
-    prevuid = data.current ? data.map[data.current].userID : 'test';
-    prevpwd = data.current ? data.map[data.current].password : 'abc';
-    newdata = _objectSpread({}, data);
-    newdata.map[data.current] = {
-      userID: prevuid + 'test',
-      password: prevpwd + 'abc'
-    };
-    finishfunc();
-    setDataFunc(newdata);
-  }, 100);
-};
+var refreshCredentialCB = /*#__PURE__*/function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(finishfunc) {
+    var mbox, resp, data, newdata;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            mbox = mailBoxData.list.find(function (item) {
+              return item.name === mailBoxData.current;
+            });
+            _context.next = 3;
+            return fetch('/api/settings/mailboxes/' + mbox.id, {
+              method: 'put',
+              headers: {
+                accept: 'application/json',
+                Authorization: 'Bearer ' + window.sessionStorage.getItem('token')
+              }
+            });
 
-var addMailBoxCB = function addMailBoxCB() {};
+          case 3:
+            resp = _context.sent;
+            _context.next = 6;
+            return resp.json();
 
-var deleteMailBoxCB = function deleteMailBoxCB() {};
+          case 6:
+            data = _context.sent;
+            newdata = _objectSpread(_objectSpread({}, mailBoxData), {}, {
+              list: mailBoxData.list.map(function (item) {
+                if (item.id === mbox.id) return data;else return item;
+              })
+            });
+            finishfunc();
+            setMailBoxDataFunc(newdata);
+
+          case 10:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function refreshCredentialCB(_x) {
+    return _ref.apply(this, arguments);
+  };
+}();
+
+var addMailBoxCB = /*#__PURE__*/function () {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(name) {
+    var resp, data, newlist;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            console.log('adding mail box: ' + name);
+            _context2.next = 3;
+            return fetch('/api/settings/mailboxes', {
+              method: 'post',
+              headers: {
+                accept: 'application/json',
+                Authorization: 'Bearer ' + window.sessionStorage.getItem('token'),
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                name: name
+              })
+            });
+
+          case 3:
+            resp = _context2.sent;
+            _context2.next = 6;
+            return resp.json();
+
+          case 6:
+            data = _context2.sent;
+            newlist = [].concat(_toConsumableArray(mailBoxData.list), [data]);
+            applyMailBoxList(newlist);
+
+          case 9:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2);
+  }));
+
+  return function addMailBoxCB(_x2) {
+    return _ref2.apply(this, arguments);
+  };
+}();
+
+var deleteMailBoxCB = /*#__PURE__*/function () {
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(index) {
+    var id, resp, data, newlist;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            console.log(mailBoxData.list[index]);
+            id = mailBoxData.list[index].id;
+            _context3.next = 4;
+            return fetch('/api/settings/mailboxes/' + id, {
+              method: 'delete',
+              headers: {
+                accept: 'application/json',
+                Authorization: 'Bearer ' + window.sessionStorage.getItem('token')
+              }
+            });
+
+          case 4:
+            resp = _context3.sent;
+            _context3.next = 7;
+            return resp.json();
+
+          case 7:
+            data = _context3.sent;
+            newlist = [];
+            mailBoxData.list.map(function (item) {
+              if (item.id !== id) newlist.push(item);
+            });
+            console.log(newlist);
+            applyMailBoxList(newlist);
+
+          case 12:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, _callee3);
+  }));
+
+  return function deleteMailBoxCB(_x3) {
+    return _ref3.apply(this, arguments);
+  };
+}();
 
 var selectCB = function selectCB(index) {
-  data = _objectSpread(_objectSpread({}, data), {}, {
-    current: data.list[index].name
+  mailBoxData = _objectSpread(_objectSpread({}, mailBoxData), {}, {
+    current: mailBoxData.list[index].name
   });
-  setMailBoxDataFunc(data);
+  setMailBoxDataFunc(mailBoxData);
 };
 
-var setServerDataFunc = function setServerDataFunc(data) {};
+var setServerDataFunc = function setServerDataFunc(mailBoxData) {};
 
 var setServerDataCB = function setServerDataCB(setfunc) {
   setServerDataFunc = setfunc;
 };
 
 var fetchServerSettings = /*#__PURE__*/function () {
-  var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(apitoken) {
+  var _ref4 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4(apitoken) {
     var res, jsondata;
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
       while (1) {
-        switch (_context.prev = _context.next) {
+        switch (_context4.prev = _context4.next) {
           case 0:
-            _context.next = 2;
+            _context4.next = 2;
             return fetch('/api/settings/server', {
               headers: {
                 accept: 'application/json',
@@ -47030,12 +47156,12 @@ var fetchServerSettings = /*#__PURE__*/function () {
             });
 
           case 2:
-            res = _context.sent;
-            _context.next = 5;
+            res = _context4.sent;
+            _context4.next = 5;
             return res.json();
 
           case 5:
-            jsondata = _context.sent;
+            jsondata = _context4.sent;
             setServerDataFunc({
               address: jsondata.serveraddress,
               port: jsondata.serverport
@@ -47043,25 +47169,38 @@ var fetchServerSettings = /*#__PURE__*/function () {
 
           case 7:
           case "end":
-            return _context.stop();
+            return _context4.stop();
         }
       }
-    }, _callee);
+    }, _callee4);
   }));
 
-  return function fetchServerSettings(_x) {
-    return _ref.apply(this, arguments);
+  return function fetchServerSettings(_x4) {
+    return _ref4.apply(this, arguments);
   };
 }();
 
+var applyMailBoxList = function applyMailBoxList(list) {
+  mailBoxData = _objectSpread({}, mailBoxData);
+  mailBoxData.list = list;
+
+  if (mailBoxData.current === '' || mailBoxData.list.find(function (item) {
+    item.name === mailBoxData.current;
+  }) === undefined) {
+    mailBoxData.current = mailBoxData.list.length > 0 ? mailBoxData.list[0].name : '';
+  }
+
+  setMailBoxDataFunc(mailBoxData);
+};
+
 var fetchMailBoxes = /*#__PURE__*/function () {
-  var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(apitoken) {
+  var _ref5 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5(apitoken) {
     var res;
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
       while (1) {
-        switch (_context2.prev = _context2.next) {
+        switch (_context5.prev = _context5.next) {
           case 0:
-            _context2.next = 2;
+            _context5.next = 2;
             return fetch('/api/settings/mailboxes', {
               headers: {
                 accept: 'application/json',
@@ -47070,25 +47209,25 @@ var fetchMailBoxes = /*#__PURE__*/function () {
             });
 
           case 2:
-            res = _context2.sent;
-            _context2.next = 5;
+            res = _context5.sent;
+            _context5.t0 = applyMailBoxList;
+            _context5.next = 6;
             return res.json();
 
-          case 5:
-            data.list = _context2.sent;
-            data.current = data.list.length > 0 ? data.list[0].name : '';
-            setMailBoxDataFunc(data);
+          case 6:
+            _context5.t1 = _context5.sent;
+            (0, _context5.t0)(_context5.t1);
 
           case 8:
           case "end":
-            return _context2.stop();
+            return _context5.stop();
         }
       }
-    }, _callee2);
+    }, _callee5);
   }));
 
-  return function fetchMailBoxes(_x2) {
-    return _ref2.apply(this, arguments);
+  return function fetchMailBoxes(_x5) {
+    return _ref5.apply(this, arguments);
   };
 }();
 

@@ -25,39 +25,80 @@ function showServerSettings(id, setDataCB) {
 }
 
 //
-var data = {current: '', list: []}
+var mailBoxData = {current: '', list: []}
 var setMailBoxDataFunc = (value) => {}
 const setMailBoxDataCB = (setfunc) => {
     setMailBoxDataFunc = setfunc
 }
-const refreshCredentialCB = (finishfunc) => {
-    // simulate rest api call
-    setTimeout(() => {
-        prevuid = data.current ? data.map[data.current].userID : 'test'
-        prevpwd = data.current ? data.map[data.current].password : 'abc'
-        newdata = {...data}
-        newdata.map[data.current] = {
-            userID: prevuid + 'test',
-            password: prevpwd + 'abc'
+
+const refreshCredentialCB = async (finishfunc) => {
+    const mbox = mailBoxData.list.find((item) => item.name === mailBoxData.current)
+    const resp = await fetch('/api/settings/mailboxes/' + mbox.id, {
+        method: 'put',
+        headers: {
+            accept: 'application/json',
+            Authorization: 'Bearer ' + window.sessionStorage.getItem('token'),
         }
-        finishfunc()
-        setDataFunc(newdata)
-    }, 100)
+    })
+    const data = await resp.json()
+    const newdata = {
+        ...mailBoxData,
+        list: mailBoxData.list.map((item) => {
+            if (item.id === mbox.id)
+                return data
+            else
+                return item
+        })
+    }
+    finishfunc()
+    setMailBoxDataFunc(newdata)
 }
-const addMailBoxCB = () => {
 
+const addMailBoxCB = async (name) => {
+    console.log('adding mail box: ' + name)
+    const resp = await fetch('/api/settings/mailboxes', {
+        method: 'post',
+        headers: {
+            accept: 'application/json',
+            Authorization: 'Bearer ' + window.sessionStorage.getItem('token'),
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({name})
+    })
+    const data = await resp.json()
+    const newlist = [...mailBoxData.list, data]
+    applyMailBoxList(newlist)
 }
-const deleteMailBoxCB = () => {
 
+const deleteMailBoxCB = async (index) => {
+    console.log(mailBoxData.list[index])
+    const id = mailBoxData.list[index].id
+    const resp = await fetch('/api/settings/mailboxes/'+id, {
+        method: 'delete',
+        headers: {
+            accept: 'application/json',
+            Authorization: 'Bearer ' + window.sessionStorage.getItem('token'),
+        }
+    })
+    const data = await resp.json()
+
+    const newlist = []
+    mailBoxData.list.map((item) => {
+        if (item.id !== id)
+            newlist.push(item)
+    })
+    console.log(newlist)
+    applyMailBoxList(newlist)
 }
+
 const selectCB = (index) => {
-    data = {...data, current: data.list[index].name}
-    setMailBoxDataFunc(data)
+    mailBoxData = {...mailBoxData, current: mailBoxData.list[index].name}
+    setMailBoxDataFunc(mailBoxData)
 }
 
-var setServerDataFunc = (data) => {}
+var setServerDataFunc = (mailBoxData) => {}
 const setServerDataCB = (setfunc) => {
-    setServerDataFunc = setfunc;
+    setServerDataFunc = setfunc
 }
 
 const fetchServerSettings = async (apitoken) => {
@@ -75,6 +116,15 @@ const fetchServerSettings = async (apitoken) => {
     })
 }
 
+const applyMailBoxList = (list) => {
+    mailBoxData = {...mailBoxData}
+    mailBoxData.list = list
+    if (mailBoxData.current === '' || mailBoxData.list.find((item) => {item.name === mailBoxData.current}) === undefined) {
+        mailBoxData.current = mailBoxData.list.length > 0 ? mailBoxData.list[0].name : ''
+    }
+    setMailBoxDataFunc(mailBoxData)
+}
+
 const fetchMailBoxes = async (apitoken) => {
     const res = await fetch('/api/settings/mailboxes', {
         headers: {
@@ -82,9 +132,7 @@ const fetchMailBoxes = async (apitoken) => {
             Authorization: 'Bearer ' + apitoken
         }
     })
-    data.list = await res.json()
-    data.current = data.list.length > 0 ? data.list[0].name : ''
-    setMailBoxDataFunc(data)
+    applyMailBoxList(await res.json())
 }
 
 showServerSettings("serversettings", setServerDataCB)

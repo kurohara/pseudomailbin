@@ -2,14 +2,19 @@
 
 namespace App\Http\Controllers\Api;
 
+use Faker;
+use App\Models\MailBox;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class MailBoxSettingsController extends Controller
 {
+    private $faker;
+
     public function __construct()
     {
         $this->middleware(['auth']);
+        $this->faker = Faker\Factory::create()->unique();
     }
     
     /**
@@ -33,6 +38,19 @@ class MailBoxSettingsController extends Controller
     public function store(Request $request)
     {
         //
+        $name = $request->name;
+        $username = $this->faker->text(32);
+        $password = $this->faker->password();
+
+        return MailBox::create([
+            'protocol' => 'smtp',
+            'address' => '',
+            'port' => 8888,
+            'name' => $name,
+            'username' => $username,
+            'password' => $password,
+            'user_id' => $request->user()->id
+        ]);
     }
 
     /**
@@ -56,6 +74,14 @@ class MailBoxSettingsController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $mailbox = MailBox::find($id);
+        $username = $this->faker->text(32);
+        $password = $this->faker->password();
+        $mailbox->update([
+            'username' => $username,
+            'password' => $password
+        ]);
+        return $mailbox;
     }
 
     /**
@@ -67,5 +93,7 @@ class MailBoxSettingsController extends Controller
     public function destroy($id)
     {
         //
+        return MailBox::destroy($id);
+
     }
 }
