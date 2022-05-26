@@ -38,7 +38,7 @@ php artisan serve
 
 Register 画面で最初にユーザ登録を行う。
 
-#### 進捗(2022/05/25): 
+#### 進捗(2022/05/26): 
 * Reactのみで一旦簡単なサンプルアプリ作成(tag: react_crash_cource)
 * 一度リセットして、一旦Laravel(blade)で画面の大枠を作成
 * 画面遷移はそのままで各ページの必要な部分だけReact化
