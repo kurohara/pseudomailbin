@@ -50,12 +50,13 @@
                         'Content-type': 'application/x-www-form-urlencoded;charset=UTF-8',
                     },
                     body: encodeURIComponent('email') + '=' + encodeURIComponent(email) + '&' + encodeURIComponent('password') + '=' + encodeURIComponent(password),
+                    // credentials: 'same-origin',
+                    credentials: 'include',
                 })
                 const cred = await resp.json()
                 console.log(cred)
                 window.sessionStorage.setItem('token', cred.token)
-
-                document.getElementById('loginForm').submit()
+                window.location.href = "/"
             }
             document.getElementById('loginButton').onclick = onSubmit;
 

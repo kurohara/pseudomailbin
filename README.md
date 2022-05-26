@@ -17,7 +17,7 @@ echo 'DB_CONNECTION=sqlite' >> .env
 php artisan migrate
 ```
 
-(ダミーメールボックス作成)
+(ダミーメールボックス作成、ユーザ作成後)
 ```shell
 php artisan tinker
 App\Models\MailBox::factory()->times(3)->create(['user_id' => 1])
@@ -46,14 +46,14 @@ Register 画面で最初にユーザ登録を行う。
 
 各ページ上にReactのComponentを載せるやり方で作ってみたが、全体をReact化するのに比べてメリットがあるのか不明。  
 
-Laravelによる画面遷移を残しつつ、React の componentを使用するやり方を試しているが、認証で少々無駄な処理が入ってしまう。  
-Login画面でFormを使用して認証を行い、ログインすると画面遷移する仕組みの上に、ReactからAPIを使用する仕組みを追加したが、どうしても認証を2回通すやり方になってしまう。  
-1回目は api 認証を行い、その後 form をsubmitする。  
-api認証後のtokenはsessionStorageに保存。  
-form認証の結果はcookieに保存される。  
+認証はformからの画面遷移で使用できるcookieと api token 両方を返却する api を作成して使用している。
+
+api token は sessionStorageに保存する。
 
 という方法で、画面遷移とJSからのfetch()の両立をおこなった。  
-他に良い方法があれば良いが。  
+
+cookieのみでも両立できると思うが、色々迷走した結果、現状この形になった。  
+（JavaScriptでcookieを取り回すことにセキュリティ的不安もあったので。おそらく問題ないとは思うが）  
 
 ### データベース
 

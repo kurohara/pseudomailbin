@@ -53,6 +53,14 @@ class AuthController extends Controller
             ], 401);
         }
 
+
+        if (!auth()->attempt($request->only('email', 'password'), $request->remember)) {
+            return response([
+                'message' => 'Bad Credentials.',
+            ], 401);
+        }
+
+
         $token = $this->plainTextToken($user->createToken('myapptoken'));
 
         $response = [
@@ -71,6 +79,7 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         auth()->user()->tokens[0]->delete();
+        auth()->logout();
 
         return [
             'message' => 'Logged out'
