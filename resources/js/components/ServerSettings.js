@@ -1,15 +1,8 @@
 import CopyText from "./CopyText"
 import { useTranslation } from "react-i18next"
-import { useState } from 'react'
 
-const ServerSettings = ({setDataCB}) => {
+const ServerSettings = ({data}) => {
     const {t, i18n} = useTranslation()
-    const [data, setData] = useState({
-        address: '',
-        port: ''
-    })
-
-    setDataCB(setData)
 
     return (
         <div className="block w-full p-2 px-2">

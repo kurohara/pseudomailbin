@@ -20,14 +20,11 @@ use App\Http\Controllers\Api\MailBoxSettingsController;
 */
 
 // Route::resource('messages', MessageController::class);
-Route::get('/messages', [MessageController::class, 'index']);
-Route::get('/messages/{id}', [MessageController::class, 'show']);
-Route::get('/messages/search/{subject}', [MessageController::class, 'search']);
-
 Route::group(['middleware' => ['auth:sanctum'] ], function () {
     Route::post('/messages', [MessageController::class, 'store']);
     Route::put('/messages/{id}', [MessageController::class, 'update']);
     Route::delete('/messages/{id}', [MessageController::class, 'destroy']);
+
     Route::post('/logout', [AuthController::class, 'logout']);
 
     Route::get('/settings/server', [ServerSettingsController::class, 'index']);
@@ -35,12 +32,14 @@ Route::group(['middleware' => ['auth:sanctum'] ], function () {
     Route::post('/settings/mailboxes', [MailBoxSettingsController::class, 'store']);
     Route::delete('/settings/mailboxes/{id}', [MailBoxSettingsController::class, 'destroy']);
     Route::put('/settings/mailboxes/{id}', [MailBoxSettingsController::class, 'update']);
+
+    Route::get('/messages', [MessageController::class, 'index']);
+    Route::get('/messages/{id}', [MessageController::class, 'show']);
+    Route::get('/messages/search/{subject}', [MessageController::class, 'search']);
 });
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
-
-Route::resource('tasks', TaskController::class);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

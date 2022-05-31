@@ -4,24 +4,10 @@ import CopyText from './CopyText'
 import SelectWithAdd from './SelectWithAdd'
 import RotateButton from './RotateButton'
 
-const MailBoxSettings = ({setDataCB, refreshCredentialCB, addMailBoxCB, deleteMailBoxCB, selectCB}) => {
+const MailBoxSettings = ({data, refreshCredentialCB, addMailBoxCB, deleteMailBoxCB, selectCB}) => {
     const {t, i18n} = useTranslation()
     const [rotate, setRotate] = useState(false)
-    const [data, setData] = useState({
-        current: '',
-        list: [
-            // {
-            //     name: '',
-            //     username: '',
-            //     password: ''
-            // }
-        ]
-    })
 
-    setDataCB(setData)
-
-    console.log(data)
-    
     const currentMailBox = data.current
     const mailboxnames = data.list.map((e) => e.name)
     console.log(currentMailBox)

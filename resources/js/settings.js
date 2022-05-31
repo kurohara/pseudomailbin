@@ -3,33 +3,32 @@ import ReactDOM from 'react-dom/client';
 import MailBoxSettings from './components/MailBoxSettings'
 import ServerSetting from './components/ServerSettings'
 
-function showMailBoxSettings(id, setDataCB, refreshCredentialCB, addMailBoxCB, deleteMailBoxCB, selectCB) {
-    ReactDOM.createRoot(document.getElementById(id)).render(
+const serverSettingsDom = ReactDOM.createRoot(document.getElementById('serversettings'))
+const mailboxsettingsDom = ReactDOM.createRoot(document.getElementById('mailboxsettings'))
+
+const updateMailBoxSettings = (data, refreshCredentialCB, addMailBoxCB, deleteMailBoxCB, selectCB) => {
+    mailboxsettingsDom.render(
         <React.StrictMode>
             <MailBoxSettings 
-                setDataCB={setDataCB}
+                data={data}
                 refreshCredentialCB={refreshCredentialCB} 
                 addMailBoxCB={addMailBoxCB} 
                 deleteMailBoxCB={deleteMailBoxCB} 
                 selectCB={selectCB} />
         </React.StrictMode>
-    );
+    )
 }
 
-function showServerSettings(id, setDataCB) {
-    ReactDOM.createRoot(document.getElementById(id)).render(
+const updateServerSettings = (data) => {
+    serverSettingsDom.render(
         <React.StrictMode>
-            <ServerSetting setDataCB={setDataCB} />
+            <ServerSetting data={data} />
         </React.StrictMode>
-    );
+    )
 }
 
 //
 var mailBoxData = {current: '', list: []}
-var setMailBoxDataFunc = (value) => {}
-const setMailBoxDataCB = (setfunc) => {
-    setMailBoxDataFunc = setfunc
-}
 
 const refreshCredentialCB = async (finishfunc) => {
     const mbox = mailBoxData.list.find((item) => item.name === mailBoxData.current)
@@ -51,7 +50,7 @@ const refreshCredentialCB = async (finishfunc) => {
         })
     }
     finishfunc()
-    setMailBoxDataFunc(newdata)
+    updateMailBoxSettings(newdata, refreshCredentialCB, addMailBoxCB, deleteMailBoxCB, selectCB)
 }
 
 const addMailBoxCB = async (name) => {
@@ -93,12 +92,7 @@ const deleteMailBoxCB = async (index) => {
 
 const selectCB = (index) => {
     mailBoxData = {...mailBoxData, current: mailBoxData.list[index].name}
-    setMailBoxDataFunc(mailBoxData)
-}
-
-var setServerDataFunc = (mailBoxData) => {}
-const setServerDataCB = (setfunc) => {
-    setServerDataFunc = setfunc
+    updateMailBoxSettings(mailBoxData, refreshCredentialCB, addMailBoxCB, deleteMailBoxCB, selectCB)
 }
 
 const fetchServerSettings = async (apitoken) => {
@@ -110,7 +104,7 @@ const fetchServerSettings = async (apitoken) => {
     })
     const jsondata = await res.json()
 
-    setServerDataFunc({
+    updateServerSettings({
         address: jsondata.serveraddress,
         port: jsondata.serverport
     })
@@ -122,7 +116,7 @@ const applyMailBoxList = (list) => {
     if (mailBoxData.current === '' || mailBoxData.list.find((item) => {item.name === mailBoxData.current}) === undefined) {
         mailBoxData.current = mailBoxData.list.length > 0 ? mailBoxData.list[0].name : ''
     }
-    setMailBoxDataFunc(mailBoxData)
+    updateMailBoxSettings(mailBoxData, refreshCredentialCB, addMailBoxCB, deleteMailBoxCB, selectCB)
 }
 
 const fetchMailBoxes = async (apitoken) => {
@@ -135,15 +129,17 @@ const fetchMailBoxes = async (apitoken) => {
     applyMailBoxList(await res.json())
 }
 
-showServerSettings("serversettings", setServerDataCB)
-showMailBoxSettings("mailboxsettings", setMailBoxDataCB, refreshCredentialCB, addMailBoxCB, deleteMailBoxCB, selectCB)
 //
 
 const token = window.sessionStorage.getItem('token')
+// initial view update
+updateServerSettings({
+    address: "",
+    port: ""
+})
+updateMailBoxSettings(mailBoxData, refreshCredentialCB, addMailBoxCB, deleteMailBoxCB, selectCB)
+
 // fetch initial data
 fetchServerSettings(token)
 fetchMailBoxes(token)
 
-// // for script code in the outer HTML.
-// setGlobal('showMailBoxSettings', showMailBoxSettings)
-// setGlobal('showServerSettings', showServerSettings)

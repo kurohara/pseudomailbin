@@ -25,6 +25,8 @@ mix.js('resources/js/index.js', 'public/js')
     .react()
     .js('resources/js/settings.js', 'public/js')
     .react()
+    .js('resources/js/mailbox.js', 'public/js')
+    .react()
     .postCss('resources/css/App.css', 'public/css', [
         //
         require("tailwindcss"),

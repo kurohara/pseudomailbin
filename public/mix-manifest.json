@@ -2,5 +2,6 @@
     "/js/index.js": "/js/index.js",
     "/js/about.js": "/js/about.js",
     "/js/settings.js": "/js/settings.js",
+    "/js/mailbox.js": "/js/mailbox.js",
     "/css/App.css": "/css/App.css"
 }

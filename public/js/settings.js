@@ -117,7 +117,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var MailBoxSettings = function MailBoxSettings(_ref) {
-  var setDataCB = _ref.setDataCB,
+  var data = _ref.data,
       refreshCredentialCB = _ref.refreshCredentialCB,
       addMailBoxCB = _ref.addMailBoxCB,
       deleteMailBoxCB = _ref.deleteMailBoxCB,
@@ -132,21 +132,6 @@ var MailBoxSettings = function MailBoxSettings(_ref) {
       rotate = _useState2[0],
       setRotate = _useState2[1];
 
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
-    current: '',
-    list: [// {
-      //     name: '',
-      //     username: '',
-      //     password: ''
-      // }
-    ]
-  }),
-      _useState4 = _slicedToArray(_useState3, 2),
-      data = _useState4[0],
-      setData = _useState4[1];
-
-  setDataCB(setData);
-  console.log(data);
   var currentMailBox = data.current;
   var mailboxnames = data.list.map(function (e) {
     return e.name;
@@ -471,56 +456,32 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _CopyText__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CopyText */ "./resources/js/components/CopyText.js");
-/* harmony import */ var react_i18next__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-i18next */ "./node_modules/react-i18next/dist/es/useTranslation.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-
+/* harmony import */ var react_i18next__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-i18next */ "./node_modules/react-i18next/dist/es/useTranslation.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
 
 
 
 var ServerSettings = function ServerSettings(_ref) {
-  var setDataCB = _ref.setDataCB;
+  var data = _ref.data;
 
-  var _useTranslation = (0,react_i18next__WEBPACK_IMPORTED_MODULE_3__.useTranslation)(),
+  var _useTranslation = (0,react_i18next__WEBPACK_IMPORTED_MODULE_2__.useTranslation)(),
       t = _useTranslation.t,
       i18n = _useTranslation.i18n;
 
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({
-    address: '',
-    port: ''
-  }),
-      _useState2 = _slicedToArray(_useState, 2),
-      data = _useState2[0],
-      setData = _useState2[1];
-
-  setDataCB(setData);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
     className: "block w-full p-2 px-2",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
       className: "block w-5/6 m-2",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_CopyText__WEBPACK_IMPORTED_MODULE_0__["default"], {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_CopyText__WEBPACK_IMPORTED_MODULE_0__["default"], {
         id: "serveraddress",
         label: t('Server Address'),
         value: data.address
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
       className: "block w-5/6 m-2",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_CopyText__WEBPACK_IMPORTED_MODULE_0__["default"], {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_CopyText__WEBPACK_IMPORTED_MODULE_0__["default"], {
         id: "serverport",
         label: t('Server Port'),
         value: data.port
@@ -46958,37 +46919,33 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 
+var serverSettingsDom = react_dom_client__WEBPACK_IMPORTED_MODULE_2__.createRoot(document.getElementById('serversettings'));
+var mailboxsettingsDom = react_dom_client__WEBPACK_IMPORTED_MODULE_2__.createRoot(document.getElementById('mailboxsettings'));
 
-function showMailBoxSettings(id, setDataCB, refreshCredentialCB, addMailBoxCB, deleteMailBoxCB, selectCB) {
-  react_dom_client__WEBPACK_IMPORTED_MODULE_2__.createRoot(document.getElementById(id)).render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)((react__WEBPACK_IMPORTED_MODULE_1___default().StrictMode), {
+var updateMailBoxSettings = function updateMailBoxSettings(data, refreshCredentialCB, addMailBoxCB, deleteMailBoxCB, selectCB) {
+  mailboxsettingsDom.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)((react__WEBPACK_IMPORTED_MODULE_1___default().StrictMode), {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_MailBoxSettings__WEBPACK_IMPORTED_MODULE_3__["default"], {
-      setDataCB: setDataCB,
+      data: data,
       refreshCredentialCB: refreshCredentialCB,
       addMailBoxCB: addMailBoxCB,
       deleteMailBoxCB: deleteMailBoxCB,
       selectCB: selectCB
     })
   }));
-}
+};
 
-function showServerSettings(id, setDataCB) {
-  react_dom_client__WEBPACK_IMPORTED_MODULE_2__.createRoot(document.getElementById(id)).render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)((react__WEBPACK_IMPORTED_MODULE_1___default().StrictMode), {
+var updateServerSettings = function updateServerSettings(data) {
+  serverSettingsDom.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)((react__WEBPACK_IMPORTED_MODULE_1___default().StrictMode), {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_ServerSettings__WEBPACK_IMPORTED_MODULE_4__["default"], {
-      setDataCB: setDataCB
+      data: data
     })
   }));
-} //
+}; //
 
 
 var mailBoxData = {
   current: '',
   list: []
-};
-
-var setMailBoxDataFunc = function setMailBoxDataFunc(value) {};
-
-var setMailBoxDataCB = function setMailBoxDataCB(setfunc) {
-  setMailBoxDataFunc = setfunc;
 };
 
 var refreshCredentialCB = /*#__PURE__*/function () {
@@ -47023,7 +46980,7 @@ var refreshCredentialCB = /*#__PURE__*/function () {
               })
             });
             finishfunc();
-            setMailBoxDataFunc(newdata);
+            updateMailBoxSettings(newdata, refreshCredentialCB, addMailBoxCB, deleteMailBoxCB, selectCB);
 
           case 10:
           case "end":
@@ -47131,13 +47088,7 @@ var selectCB = function selectCB(index) {
   mailBoxData = _objectSpread(_objectSpread({}, mailBoxData), {}, {
     current: mailBoxData.list[index].name
   });
-  setMailBoxDataFunc(mailBoxData);
-};
-
-var setServerDataFunc = function setServerDataFunc(mailBoxData) {};
-
-var setServerDataCB = function setServerDataCB(setfunc) {
-  setServerDataFunc = setfunc;
+  updateMailBoxSettings(mailBoxData, refreshCredentialCB, addMailBoxCB, deleteMailBoxCB, selectCB);
 };
 
 var fetchServerSettings = /*#__PURE__*/function () {
@@ -47162,7 +47113,7 @@ var fetchServerSettings = /*#__PURE__*/function () {
 
           case 5:
             jsondata = _context4.sent;
-            setServerDataFunc({
+            updateServerSettings({
               address: jsondata.serveraddress,
               port: jsondata.serverport
             });
@@ -47190,7 +47141,7 @@ var applyMailBoxList = function applyMailBoxList(list) {
     mailBoxData.current = mailBoxData.list.length > 0 ? mailBoxData.list[0].name : '';
   }
 
-  setMailBoxDataFunc(mailBoxData);
+  updateMailBoxSettings(mailBoxData, refreshCredentialCB, addMailBoxCB, deleteMailBoxCB, selectCB);
 };
 
 var fetchMailBoxes = /*#__PURE__*/function () {
@@ -47229,17 +47180,19 @@ var fetchMailBoxes = /*#__PURE__*/function () {
   return function fetchMailBoxes(_x5) {
     return _ref5.apply(this, arguments);
   };
-}();
+}(); //
 
-showServerSettings("serversettings", setServerDataCB);
-showMailBoxSettings("mailboxsettings", setMailBoxDataCB, refreshCredentialCB, addMailBoxCB, deleteMailBoxCB, selectCB); //
 
-var token = window.sessionStorage.getItem('token'); // fetch initial data
+var token = window.sessionStorage.getItem('token'); // initial view update
+
+updateServerSettings({
+  address: "",
+  port: ""
+});
+updateMailBoxSettings(mailBoxData, refreshCredentialCB, addMailBoxCB, deleteMailBoxCB, selectCB); // fetch initial data
 
 fetchServerSettings(token);
-fetchMailBoxes(token); // // for script code in the outer HTML.
-// setGlobal('showMailBoxSettings', showMailBoxSettings)
-// setGlobal('showServerSettings', showServerSettings)
+fetchMailBoxes(token);
 })();
 
 /******/ })()
