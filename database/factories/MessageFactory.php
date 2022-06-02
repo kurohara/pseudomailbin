@@ -21,8 +21,10 @@ class MessageFactory extends Factory
     {
         return [
             //
-            'subject' => $this->faker->sentence(20),
+            'subject' => $this->faker->sentence(5),
             'header' => 'from: ' . $this->faker->safeEmail(),
+            'from' => $this->faker->safeEmail(),
+            'to' => $this->faker->safeEmail(),
             'body' => $this->faker->sentence(20),
             'slug' => $this->faker->sentence(1),
             'value' => $this->faker->numberBetween(0, 999)

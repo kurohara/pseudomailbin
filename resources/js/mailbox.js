@@ -7,72 +7,73 @@ import MessageList from './components/MessageList'
 
 const domelem = ReactDOM.createRoot(document.getElementById('mailbox'));
 
+var currentMailBox = 0
+var currentMessage = 0
 var mboxlist=[]
 var messagelist=[]
-var subject, to, from, datetime, body
+var message = {}
+
+const issueApi = (url, method, options)  => {
+    options = options ? options : {}
+    return fetch(url, {
+        method: method,
+        headers: {
+            accept: 'application/json',
+            Authorization: 'Bearer ' + window.sessionStorage.getItem('token'),
+        },
+        ...options, 
+    }
+    )
+}
 
 const fetchMailBoxList = async () => {
-
+    const resp = await issueApi('/api/mailboxes', 'get')
+    return await resp.json()
 }
 
 const fetchMessageList = async (mailbox) => {
-
+    const resp = await issueApi('/api/mailboxes/'+mailbox, 'get')
+    return await resp.json()
 }
 
 const fetchMessage = async (mailbox, messageid) => {
+    const resp = await issueApi('/api/mailboxes/'+mailbox +'/'+messageid, 'get')
+    return await resp.json()
+}
+
+const selectMailBoxCB = async (index) => {
+    currentMailBox = index
+    
+    messagelist = await fetchMessageList(mboxlist[index].id)
+
+    updateView()
+}
+
+const selectActionCB = (index) => {
 
 }
 
-const selectCB = () => {}
-const selectActionCB = () => {}
-const messageSelected = () => {}
+const messageSelected = async (index) => {
+    message = await fetchMessage(mboxlist[currentMailBox].id, messagelist[index].id)
+    console.log(message)
+    updateView()
+}
 
 const updateView = () => {
     domelem.render(
         <React.StrictMode>
-            <SelectMailBox list={mboxlist} selectFunc={selectCB} />
+            <SelectMailBox list={mboxlist} selectFunc={selectMailBoxCB} />
             <MessageList list={messagelist} onSelectAction={selectActionCB} onSelectMessage={messageSelected}/>
-            <Message  subject={subject} from={from} to={to} datetime={datetime} body={body} />
+            <Message message={message} />
         </React.StrictMode>
     )
 }
 
-// prepare dummy data
-mboxlist = [
-    {
-        name: 'mymbox1',
-    },
-    {
-        name: 'mymbox2',
-    }
-]
-messagelist= [
-    {
-        subject: 'test-1',
-        to: 'test@test.com',
-        from: 'test2@test.com',
-        datetime: '2022/09/01 00:00:00',
-        body: `
-        test
-        test
-        `
-    },
-    {
-        subject: 'ttest-2',
-        to: 'test@test.com',
-        from: 'test3@test.com',
-        datetime: '2022/09/01 00:00:00',
-        body: 'testtest'
-    },
-    {
-        subject: 'test-3',
-        to: 'test@test.com',
-        from: 'test3@test.com',
-        datetime: '2022/09/01 00:00:00',
-        body: 'test test'
-    },
-]
-
-setTimeout(() => {
+const loadData = async () => {
+    mboxlist = await fetchMailBoxList()
+    messagelist = await fetchMessageList(mboxlist[0].id)
     updateView()
-}, 0)
+}
+
+loadData()
+

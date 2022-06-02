@@ -23,4 +23,8 @@ class MailBox extends Model
         return $this->hasMany(Message::class);
     }
 
+    public function message($id)
+    {
+        return $this->messages->find($id);
+    }
 }

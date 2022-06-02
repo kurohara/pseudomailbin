@@ -7,6 +7,8 @@ use App\Http\Controllers\TaskController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\Api\ServerSettingsController;
 use App\Http\Controllers\Api\MailBoxSettingsController;
+use App\Http\Controllers\Api\MailBoxController;
+use App\Models\Message;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,10 +23,6 @@ use App\Http\Controllers\Api\MailBoxSettingsController;
 
 // Route::resource('messages', MessageController::class);
 Route::group(['middleware' => ['auth:sanctum'] ], function () {
-    Route::post('/messages', [MessageController::class, 'store']);
-    Route::put('/messages/{id}', [MessageController::class, 'update']);
-    Route::delete('/messages/{id}', [MessageController::class, 'destroy']);
-
     Route::post('/logout', [AuthController::class, 'logout']);
 
     Route::get('/settings/server', [ServerSettingsController::class, 'index']);
@@ -33,9 +31,16 @@ Route::group(['middleware' => ['auth:sanctum'] ], function () {
     Route::delete('/settings/mailboxes/{id}', [MailBoxSettingsController::class, 'destroy']);
     Route::put('/settings/mailboxes/{id}', [MailBoxSettingsController::class, 'update']);
 
-    Route::get('/messages', [MessageController::class, 'index']);
+    Route::get('/mailboxes', [MailBoxController::class, 'index']);
+    Route::get('/mailboxes/{id}', [MailBoxController::class, 'list']);
+    Route::get('/mailboxes/{id}/{message}', [MailBoxController::class, 'show']);
+    // Route::post('/mailboxes/{id}', [MailBoxController::class, 'store']);
+    Route::delete('/mailboxes/{id}/{message}', [MailBoxController::class, 'destroy']);
+
     Route::get('/messages/{id}', [MessageController::class, 'show']);
-    Route::get('/messages/search/{subject}', [MessageController::class, 'search']);
+
+    Route::delete('/messages/{id}', [MessageController::class, 'destroy']);
+
 });
 
 Route::post('/register', [AuthController::class, 'register']);

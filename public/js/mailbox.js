@@ -29,30 +29,26 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var Message = function Message(_ref) {
-  var subject = _ref.subject,
-      from = _ref.from,
-      to = _ref.to,
-      datetime = _ref.datetime,
-      body = _ref.body;
+  var message = _ref.message;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
       className: "message block h-2/6 border-2 mt-2 rounded-md",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
         className: "messageheader border-b-2",
-        children: ["Subject: ", subject]
+        children: ["Subject: ", message.subject]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
         className: "messagefrom border-b-2",
-        children: ["From: ", from]
+        children: ["From: ", message.from]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
         className: "messageto border-b-2",
-        children: ["To: ", to]
+        children: ["To: ", message.to]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
         className: "messagedatetime",
-        children: datetime
+        children: message.datetime
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
         className: "messagebody block h-3/6 overflow-y-scroll border-t-2 border-b-2",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("pre", {
-          children: body
+          children: message.body
         })
       })]
     })
@@ -90,7 +86,10 @@ var MessageList = function MessageList(_ref) {
       t = _useTranslation.t,
       i18n = _useTranslation.i18n;
 
-  var selectMessage = function selectMessage(e) {};
+  var clickedMessage = function clickedMessage(e, index) {
+    document.getElementById('radselmsg_' + index).setAttribute('checked', true);
+    onSelectMessage(index);
+  };
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
@@ -109,13 +108,13 @@ var MessageList = function MessageList(_ref) {
                 id: "chkallmessages"
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
-              className: "inline-block w-4/12 text-left",
+              className: "mr-6 inline-block w-4/12 text-left",
               children: "Subject"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
-              className: "inline-block w-4/12 text-left",
+              className: "mr-6 inline-block w-4/12 text-left",
               children: "From"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
-              className: "inline-block w-3/12 text-left",
+              className: "mr-6 inline-block w-3/12 text-left",
               children: "datetime"
             })]
           })
@@ -124,26 +123,32 @@ var MessageList = function MessageList(_ref) {
           children: list.map(function (item, index) {
             return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
               className: "block w-full",
+              onClick: function onClick(e) {
+                return clickedMessage(e, index);
+              },
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("td", {
-                className: "inline-block w-1/12 text-left peer-checked:bg-black peer-checked:text-white",
+                className: "hover:cursor-pointer inline-block w-1/12 text-left",
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
                   type: "checkbox",
                   name: "",
                   id: "chkmessageitem_" + index
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
-                  type: "checkbox",
+                  type: "radio",
                   className: "hidden peer",
-                  name: "",
-                  id: "chkselmsg_" + index
+                  name: "radselect",
+                  id: "radselmsg_" + index
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+                  className: "inline-block peer-checked:border-2 peer-checked:bg-black",
+                  children: " "
                 })]
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                className: "inline-block w-4/12 text-left peer-checked:bg-black peer-checked:text-white",
+                className: "mr-6 overflow-clip hover:cursor-pointer inline-block w-4/12 text-left",
                 children: item.subject
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                className: "inline-block w-4/12 text-left peer-checked:bg-black peer-checked:text-white",
+                className: "mr-6 overflow-clip hover:cursor-pointer inline-block w-4/12 text-left",
                 children: item.from
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                className: "inline-block w-3/12 text-left peer-checked:bg-black peer-checked:text-white",
+                className: "mr-6 overflow-clip hover:cursor-pointer inline-block w-3/12 text-left",
                 children: item.datetime
               })]
             }, index);
@@ -160,7 +165,9 @@ var MessageList = function MessageList(_ref) {
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("select", {
           name: "actionselect",
           id: "actionselect",
-          onSelect: onSelectAction,
+          onSelect: function onSelect(e) {
+            return onSelectAction(e.target.value);
+          },
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
             value: "none",
             children: t('Nothing')
@@ -37397,6 +37404,12 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -37405,16 +37418,42 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 var domelem = react_dom_client__WEBPACK_IMPORTED_MODULE_2__.createRoot(document.getElementById('mailbox'));
+var currentMailBox = 0;
+var currentMessage = 0;
 var mboxlist = [];
 var messagelist = [];
-var subject, to, from, datetime, body;
+var message = {};
+
+var issueApi = function issueApi(url, method, options) {
+  options = options ? options : {};
+  return fetch(url, _objectSpread({
+    method: method,
+    headers: {
+      accept: 'application/json',
+      Authorization: 'Bearer ' + window.sessionStorage.getItem('token')
+    }
+  }, options));
+};
 
 var fetchMailBoxList = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+    var resp;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
+            _context.next = 2;
+            return issueApi('/api/mailboxes', 'get');
+
+          case 2:
+            resp = _context.sent;
+            _context.next = 5;
+            return resp.json();
+
+          case 5:
+            return _context.abrupt("return", _context.sent);
+
+          case 6:
           case "end":
             return _context.stop();
         }
@@ -37429,10 +37468,23 @@ var fetchMailBoxList = /*#__PURE__*/function () {
 
 var fetchMessageList = /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(mailbox) {
+    var resp;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
+            _context2.next = 2;
+            return issueApi('/api/mailboxes/' + mailbox, 'get');
+
+          case 2:
+            resp = _context2.sent;
+            _context2.next = 5;
+            return resp.json();
+
+          case 5:
+            return _context2.abrupt("return", _context2.sent);
+
+          case 6:
           case "end":
             return _context2.stop();
         }
@@ -37447,10 +37499,23 @@ var fetchMessageList = /*#__PURE__*/function () {
 
 var fetchMessage = /*#__PURE__*/function () {
   var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(mailbox, messageid) {
+    var resp;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
+            _context3.next = 2;
+            return issueApi('/api/mailboxes/' + mailbox + '/' + messageid, 'get');
+
+          case 2:
+            resp = _context3.sent;
+            _context3.next = 5;
+            return resp.json();
+
+          case 5:
+            return _context3.abrupt("return", _context3.sent);
+
+          case 6:
           case "end":
             return _context3.stop();
         }
@@ -37463,59 +37528,109 @@ var fetchMessage = /*#__PURE__*/function () {
   };
 }();
 
-var selectCB = function selectCB() {};
+var selectMailBoxCB = /*#__PURE__*/function () {
+  var _ref4 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4(index) {
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+      while (1) {
+        switch (_context4.prev = _context4.next) {
+          case 0:
+            currentMailBox = index;
+            _context4.next = 3;
+            return fetchMessageList(mboxlist[index].id);
 
-var selectActionCB = function selectActionCB() {};
+          case 3:
+            messagelist = _context4.sent;
+            updateView();
 
-var messageSelected = function messageSelected() {};
+          case 5:
+          case "end":
+            return _context4.stop();
+        }
+      }
+    }, _callee4);
+  }));
+
+  return function selectMailBoxCB(_x4) {
+    return _ref4.apply(this, arguments);
+  };
+}();
+
+var selectActionCB = function selectActionCB(index) {};
+
+var messageSelected = /*#__PURE__*/function () {
+  var _ref5 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5(index) {
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
+      while (1) {
+        switch (_context5.prev = _context5.next) {
+          case 0:
+            _context5.next = 2;
+            return fetchMessage(mboxlist[currentMailBox].id, messagelist[index].id);
+
+          case 2:
+            message = _context5.sent;
+            console.log(message);
+            updateView();
+
+          case 5:
+          case "end":
+            return _context5.stop();
+        }
+      }
+    }, _callee5);
+  }));
+
+  return function messageSelected(_x5) {
+    return _ref5.apply(this, arguments);
+  };
+}();
 
 var updateView = function updateView() {
   domelem.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)((react__WEBPACK_IMPORTED_MODULE_1___default().StrictMode), {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_SelectMailBox__WEBPACK_IMPORTED_MODULE_4__["default"], {
       list: mboxlist,
-      selectFunc: selectCB
+      selectFunc: selectMailBoxCB
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_MessageList__WEBPACK_IMPORTED_MODULE_5__["default"], {
       list: messagelist,
       onSelectAction: selectActionCB,
       onSelectMessage: messageSelected
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_Message__WEBPACK_IMPORTED_MODULE_3__["default"], {
-      subject: subject,
-      from: from,
-      to: to,
-      datetime: datetime,
-      body: body
+      message: message
     })]
   }));
-}; // prepare dummy data
+};
 
+var loadData = /*#__PURE__*/function () {
+  var _ref6 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee6() {
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee6$(_context6) {
+      while (1) {
+        switch (_context6.prev = _context6.next) {
+          case 0:
+            _context6.next = 2;
+            return fetchMailBoxList();
 
-mboxlist = [{
-  name: 'mymbox1'
-}, {
-  name: 'mymbox2'
-}];
-messagelist = [{
-  subject: 'test-1',
-  to: 'test@test.com',
-  from: 'test2@test.com',
-  datetime: '2022/09/01 00:00:00',
-  body: "\n        test\n        test\n        "
-}, {
-  subject: 'ttest-2',
-  to: 'test@test.com',
-  from: 'test3@test.com',
-  datetime: '2022/09/01 00:00:00',
-  body: 'testtest'
-}, {
-  subject: 'test-3',
-  to: 'test@test.com',
-  from: 'test3@test.com',
-  datetime: '2022/09/01 00:00:00',
-  body: 'test test'
-}];
-setTimeout(function () {
-  updateView();
-}, 0);
+          case 2:
+            mboxlist = _context6.sent;
+            _context6.next = 5;
+            return fetchMessageList(mboxlist[0].id);
+
+          case 5:
+            messagelist = _context6.sent;
+            updateView();
+
+          case 7:
+          case "end":
+            return _context6.stop();
+        }
+      }
+    }, _callee6);
+  }));
+
+  return function loadData() {
+    return _ref6.apply(this, arguments);
+  };
+}();
+
+loadData();
 })();
 
 /******/ })()

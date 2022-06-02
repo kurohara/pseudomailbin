@@ -17,13 +17,19 @@ echo 'DB_CONNECTION=sqlite' >> .env
 php artisan migrate
 ```
 
-(ダミーメールボックス作成、ユーザ作成後)
+(ダミーメールボックス作成、ユーザ作成後、ユーザIDが１の場合)
 ```shell
 php artisan tinker
 App\Models\MailBox::factory()->times(3)->create(['user_id' => 1])
 ```
 
-(編集する場合、バックグラウンドで)
+(ダミーメッセージ作成、メールボックス作成後、メールボックスIDが 1 の場合)
+```shell
+php artisan tinker
+App\Models\Message::factory()->times(100)->create(['mail_box_id' => 1])
+```
+
+(フロント側ソールを編集する場合、バックグラウンドで)
 ```shell
 npm run watch
 ```
@@ -38,7 +44,7 @@ php artisan serve
 
 Register 画面で最初にユーザ登録を行う。
 
-#### 進捗(2022/05/31): 
+#### 進捗(2022/06/02): 
 * Reactのみで一旦簡単なサンプルアプリ作成(tag: react_crash_cource)
 * 一度リセットして、一旦Laravel(blade)で画面の大枠を作成
 * 画面遷移はそのままで各ページの必要な部分だけReact化
@@ -76,9 +82,12 @@ messages {
     integer id
     integer mail_box_id
     string header
+    string from
+    string to
     string subject
     string body
     string slug
     integer value
 }
 ```
+
