@@ -8,7 +8,8 @@
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
 </head>
 <body>
-    <script src="{{asset('js/index.js')}}"></script>
+    <div class="h-screen">
+    {{-- <script src="{{asset('js/index.js')}}"></script> --}}
     <div class="sm:w-24 w-12"><x-fluentui-mail-inbox-all-24 /></div>
     <label for="hamburger">
         <x-radix-hamburger-menu class="sm:invisible w-8" />
@@ -52,7 +53,9 @@
             }
         }
     </script>
-    <h1 class="pl-3 border-b-2 mb-3">@yield('title')</h1>
+    <h1 class="pl-3 border-b-2 mb-3 mx-3">@yield('title')</h1>
     @yield('content')
+
+</div>
 </body>
 </html>

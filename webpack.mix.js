@@ -11,21 +11,10 @@ const mix = require('laravel-mix');
  |
  */
 
-// mix.js('resources/js/App.js', 'public/js')
-//     .js('resources/js/reportWebVitals.js', 'public/js')
-//     .js('resources/js/index.js', 'public/js')
-//     .react()
-//     .postCss('resources/css/App.css', 'public/css', [
-//         //
-//         require("tailwindcss"),
-//     ]);
-mix.js('resources/js/index.js', 'public/js')
-    .react()
-    .js('resources/js/about.js', 'public/js')
-    .react()
-    .js('resources/js/settings.js', 'public/js')
-    .react()
-    .js('resources/js/mailbox.js', 'public/js')
+mix.ts('resources/js/index.tsx', 'public/js')
+    .ts('resources/js/about.tsx', 'public/js')
+    .ts('resources/js/settings.tsx', 'public/js')
+    .ts('resources/js/mailbox.tsx', 'public/js')
     .react()
     .postCss('resources/css/App.css', 'public/css', [
         //

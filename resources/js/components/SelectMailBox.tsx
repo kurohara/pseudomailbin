@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types'
+import React from 'react'
 
-const SelectMailBox = ({list, selectFunc}) => {
-  const onSelect = (e) => {
+const SelectMailBox = ({list, selectFunc}:{list: {name:string}[], selectFunc:Function}) => {
+  const onSelect:React.MouseEventHandler<HTMLSelectElement> = (e) => {
     e.preventDefault()
-    selectFunc(e.target.value)
+    selectFunc((e.target! as HTMLSelectElement).value)
   }
   return (
     <>

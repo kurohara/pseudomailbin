@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types'
 import {GrPowerCycle} from 'react-icons/gr'
-import {useState, useEffect} from 'react'
+import React, {useState, useEffect} from 'react'
 
-const RotateButton = ({brotate, onClick}) => {
+const RotateButton = ({brotate, onClick}:{brotate: boolean, onClick: React.MouseEventHandler<HTMLButtonElement>}) => {
     const [angle, setAngle] = useState(0)
 
     useEffect(() => {

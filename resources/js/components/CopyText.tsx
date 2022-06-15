@@ -1,11 +1,10 @@
 import { FaClipboardCheck } from 'react-icons/fa'
-import {useState} from 'react'
 
-const CopyText = ({id, label, value}) => {
+const CopyText = ({id, label, value}:{id:string, label:string, value:string}) => {
     const cid = "__" + id
-    const onClick = (e) => {
+    const onClick:React.MouseEventHandler<HTMLButtonElement> = (e) => {
         e.preventDefault()
-        const elem = document.getElementById(cid)
+        const elem = document.getElementById(cid)! as HTMLInputElement
         navigator.clipboard.writeText(elem.value)
     }
     return (
@@ -21,7 +20,7 @@ const CopyText = ({id, label, value}) => {
                 id={cid} 
                 value={value} 
                 readOnly 
-                className="border-blue-500 rounded-lg border-2 inline-block float-right w-64" />
+                className="border-blue-500 rounded-lg border-2 inline-block float-right w-4/6" />
         </>
     )
 }

@@ -1,15 +1,15 @@
 import {useTranslation} from 'react-i18next'
 
-const MessageList = ({list, onSelectMessage, onSelectAction}) => {
-    const {t, i18n} = useTranslation()
+const MessageList = ({list, onSelectMessage, onSelectAction}:{list: {subject:string, from:string, datetime:string}[], onSelectMessage: Function, onSelectAction: Function}) => {
+    const {t} = useTranslation()
 
-    const clickedMessage = (e, index) => {
-        document.getElementById('radselmsg_'+index).setAttribute('checked', true)
+    const clickedMessage = (e:React.MouseEvent, index: number) => {
+        (document.getElementById('radselmsg_'+index)!as HTMLInputElement).setAttribute('checked', 'true')
         onSelectMessage(index)
     }
     return (
         <>
-            <div className="messagelist w-full block h-2/6 overflow-y-hidden">
+            <div className="messagelist w-full block overflow-y-hidden">
                 <table className="w-full border-2 block h-full">
                     <thead className="w-full border-2 block whitespace-nowrap">
                         <tr className="w-full block">
@@ -19,7 +19,7 @@ const MessageList = ({list, onSelectMessage, onSelectAction}) => {
                             <th className="mr-6 inline-block w-3/12 text-left">datetime</th>
                         </tr>
                     </thead>
-                    <tbody className="w-full block h-5/6 overflow-y-scroll whitespace-nowrap border-2">
+                    <tbody className="w-full block max-h-56 overflow-y-scroll whitespace-nowrap border-2">
                         {
                             list.map((item,index) => (
                                 <tr className="block w-full" key={index} onClick={(e) => clickedMessage(e, index)}>
@@ -40,7 +40,7 @@ const MessageList = ({list, onSelectMessage, onSelectAction}) => {
             <div>
                 <form action="" method="post">
                     <label htmlFor="actionselect">{t('select action')}</label>
-                    <select name="actionselect" id="actionselect" onSelect={(e) => onSelectAction(e.target.value)}>
+                    <select name="actionselect" id="actionselect" onSelect={(e) => onSelectAction((e.target! as HTMLInputElement).value)}>
                         <option value="none">{t('Nothing')}</option>
                         <option value="delete">{t('Delete')}</option>
                     </select>

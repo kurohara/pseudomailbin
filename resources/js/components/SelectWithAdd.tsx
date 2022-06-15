@@ -2,27 +2,27 @@ import { FaPlusCircle } from 'react-icons/fa'
 import { FaMinusSquare } from 'react-icons/fa'
 import {useTranslation} from 'react-i18next'
 
-const SelectWithAdd = ({id, label, value, onAdd, onSelect, onDelete}) => {
-    const {t, i18n} = useTranslation()
-    const closeAdd = (e) => {
-        document.getElementById('add'+id).checked = false
+const SelectWithAdd = ({id, label, value, onAdd, onSelect, onDelete}:{id: string, label: string, value: string[], onAdd:Function, onSelect:Function, onDelete:Function}) => {
+    const {t} = useTranslation()
+    const closeAdd:React.MouseEventHandler = (e) => {
+        (document.getElementById('add'+id)! as HTMLInputElement).checked = false
         e.preventDefault()
-        if (e.target.id === "doApplyAdd") {
+        if ((e.target as HTMLElement).id === "doApplyAdd") {
             console.log("create mail box")
-            onAdd(document.getElementById('new'+id).value)
+            onAdd((document.getElementById('new'+id)! as HTMLInputElement).value)
         }
     }
-    const closeDelete = (e) => {
-        document.getElementById('delete'+id).checked = false
+    const closeDelete:React.MouseEventHandler = (e) => {
+        (document.getElementById('delete'+id)! as HTMLInputElement).checked = false
         e.preventDefault()
-        if (e.target.id === "doApplyDelete") {
+        if ((e.target as HTMLElement).id === "doApplyDelete") {
             console.log("delete mail box")
-            onDelete(document.getElementById(id+'select').value)
+            onDelete((document.getElementById(id+'select')! as HTMLInputElement).value)
         }
     }
-    const onChange = (e) => {
-        console.log(e.target.value)
-        onSelect(e.target.value)
+    const onChange:React.ChangeEventHandler = (e) => {
+        console.log((e.target as HTMLInputElement).value)
+        onSelect((e.target as HTMLInputElement).value)
     }
     return (
         <div className='block w-full'>

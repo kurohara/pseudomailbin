@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import './i18n'
 import MailBoxSettings from './components/MailBoxSettings'
 import ServerSetting from './components/ServerSettings'
 
-const serverSettingsDom = ReactDOM.createRoot(document.getElementById('serversettings'))
-const mailboxsettingsDom = ReactDOM.createRoot(document.getElementById('mailboxsettings'))
+const serverSettingsDom = ReactDOM.createRoot(document.getElementById('serversettings')!)
+const mailboxsettingsDom = ReactDOM.createRoot(document.getElementById('mailboxsettings')!)
 
-const updateMailBoxSettings = (data, refreshCredentialCB, addMailBoxCB, deleteMailBoxCB, selectCB) => {
+const updateMailBoxSettings = (data:{current:string, list: {name: string, username: string, password: string}[]}, refreshCredentialCB:Function, addMailBoxCB:Function, deleteMailBoxCB:Function, selectCB:Function) => {
     mailboxsettingsDom.render(
         <React.StrictMode>
             <MailBoxSettings 
@@ -19,7 +20,7 @@ const updateMailBoxSettings = (data, refreshCredentialCB, addMailBoxCB, deleteMa
     )
 }
 
-const updateServerSettings = (data) => {
+const updateServerSettings = (data:{address:string, port: number}) => {
     serverSettingsDom.render(
         <React.StrictMode>
             <ServerSetting data={data} />
@@ -28,10 +29,10 @@ const updateServerSettings = (data) => {
 }
 
 //
-var mailBoxData = {current: '', list: []}
+var mailBoxData: {current: string, list:{name:string, id: number, username:string, password:string}[]} = {current: '', list: []}
 
-const refreshCredentialCB = async (finishfunc) => {
-    const mbox = mailBoxData.list.find((item) => item.name === mailBoxData.current)
+const refreshCredentialCB = async (finishfunc:Function) => {
+    const mbox = mailBoxData.list.find((item) => item.name === mailBoxData.current)!
     const resp = await fetch('/api/settings/mailboxes/' + mbox.id, {
         method: 'put',
         headers: {
@@ -53,7 +54,7 @@ const refreshCredentialCB = async (finishfunc) => {
     updateMailBoxSettings(newdata, refreshCredentialCB, addMailBoxCB, deleteMailBoxCB, selectCB)
 }
 
-const addMailBoxCB = async (name) => {
+const addMailBoxCB = async (name:string) => {
     console.log('adding mail box: ' + name)
     const resp = await fetch('/api/settings/mailboxes', {
         method: 'post',
@@ -69,7 +70,7 @@ const addMailBoxCB = async (name) => {
     applyMailBoxList(newlist)
 }
 
-const deleteMailBoxCB = async (index) => {
+const deleteMailBoxCB = async (index:number) => {
     console.log(mailBoxData.list[index])
     const id = mailBoxData.list[index].id
     const resp = await fetch('/api/settings/mailboxes/'+id, {
@@ -81,7 +82,7 @@ const deleteMailBoxCB = async (index) => {
     })
     const data = await resp.json()
 
-    const newlist = []
+    var newlist:{name: string, id: number, username: string, password: string}[] = []
     mailBoxData.list.map((item) => {
         if (item.id !== id)
             newlist.push(item)
@@ -90,12 +91,12 @@ const deleteMailBoxCB = async (index) => {
     applyMailBoxList(newlist)
 }
 
-const selectCB = (index) => {
+const selectCB = (index:number) => {
     mailBoxData = {...mailBoxData, current: mailBoxData.list[index].name}
     updateMailBoxSettings(mailBoxData, refreshCredentialCB, addMailBoxCB, deleteMailBoxCB, selectCB)
 }
 
-const fetchServerSettings = async (apitoken) => {
+const fetchServerSettings = async (apitoken:string) => {
     const res = await fetch('/api/settings/server', {
         headers: {
             accept: 'application/json',
@@ -110,7 +111,7 @@ const fetchServerSettings = async (apitoken) => {
     })
 }
 
-const applyMailBoxList = (list) => {
+const applyMailBoxList = (list:{name:string, id: number, username: string, password: string}[]) => {
     mailBoxData = {...mailBoxData}
     mailBoxData.list = list
     if (mailBoxData.current === '' || mailBoxData.list.find((item) => {item.name === mailBoxData.current}) === undefined) {
@@ -119,7 +120,7 @@ const applyMailBoxList = (list) => {
     updateMailBoxSettings(mailBoxData, refreshCredentialCB, addMailBoxCB, deleteMailBoxCB, selectCB)
 }
 
-const fetchMailBoxes = async (apitoken) => {
+const fetchMailBoxes = async (apitoken:string) => {
     const res = await fetch('/api/settings/mailboxes', {
         headers: {
             accept: 'application/json',
@@ -135,11 +136,11 @@ const token = window.sessionStorage.getItem('token')
 // initial view update
 updateServerSettings({
     address: "",
-    port: ""
+    port: 0
 })
 updateMailBoxSettings(mailBoxData, refreshCredentialCB, addMailBoxCB, deleteMailBoxCB, selectCB)
 
 // fetch initial data
-fetchServerSettings(token)
-fetchMailBoxes(token)
+fetchServerSettings(token!)
+fetchMailBoxes(token!)
 
