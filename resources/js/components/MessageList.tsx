@@ -1,6 +1,13 @@
 import {useTranslation} from 'react-i18next'
 
-const MessageList = ({list, onSelectMessage, onSelectAction}:{list: {subject:string, from:string, datetime:string}[], onSelectMessage: Function, onSelectAction: Function}) => {
+export class MessageHeaderType {
+    id: number = 0;
+    subject:string = '';
+    from:string = '';
+    datetime:string = '';
+}
+
+const MessageList = ({list, onSelectMessage, onSelectAction}:{list: MessageHeaderType[], onSelectMessage: Function, onSelectAction: Function}) => {
     const {t} = useTranslation()
 
     const clickedMessage = (e:React.MouseEvent, index: number) => {

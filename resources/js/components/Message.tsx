@@ -1,5 +1,15 @@
 
-const Message = ({message}:{message: {subject: string, from: string, to: string, datetime: string, body: string}}) => {
+
+export class MessageDataType {
+    id: number = 0;
+    subject: string = '';
+    from: string = '';
+    to: string = '';
+    datetime: string = ''
+    body: string = ''
+}
+
+const Message = ({message}:{message: MessageDataType}) => {
         return (
         <>
         <div className="message block h-2/6 border-2 mt-2 rounded-md">
@@ -16,7 +26,7 @@ const Message = ({message}:{message: {subject: string, from: string, to: string,
                 {message.datetime}
             </div>
             <div className="messagebody block h-3/6 overflow-y-scroll border-t-2 border-b-2">
-                <pre>
+                <pre className="whitespace-pre-wrap">
                     {message.body}
                 </pre>
             </div>

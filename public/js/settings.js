@@ -119,8 +119,7 @@ var MailBoxSettings = function MailBoxSettings(_ref) {
       selectCB = _ref.selectCB;
 
   var _useTranslation = (0,react_i18next__WEBPACK_IMPORTED_MODULE_5__.useTranslation)(),
-      t = _useTranslation.t,
-      i18n = _useTranslation.i18n;
+      t = _useTranslation.t;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
       _useState2 = _slicedToArray(_useState, 2),
@@ -132,19 +131,13 @@ var MailBoxSettings = function MailBoxSettings(_ref) {
     return e.name;
   });
   console.log(currentMailBox);
-  var credentials = {
-    userID: '',
-    password: ''
-  };
+  var credentials;
 
   if (currentMailBox) {
     var current = data.list.find(function (value) {
       return value.name === currentMailBox;
     });
-    credentials = {
-      userID: current.username,
-      password: current.password
-    };
+    credentials = current;
   }
 
   console.log(credentials);
@@ -178,7 +171,7 @@ var MailBoxSettings = function MailBoxSettings(_ref) {
           children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_CopyText__WEBPACK_IMPORTED_MODULE_2__["default"], {
             id: "userid",
             label: t('UserID'),
-            value: credentials.userID
+            value: credentials.username
           })
         })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", Object.assign({
           className: "inline-block mb-3 mx-3 w-full",
@@ -467,21 +460,33 @@ SelectWithAdd.defaultProps = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "MailServerType": () => (/* binding */ MailServerType),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 /* harmony import */ var _CopyText__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CopyText */ "./resources/js/components/CopyText.tsx");
 /* harmony import */ var react_i18next__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-i18next */ "./node_modules/react-i18next/dist/es/useTranslation.js");
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 
 
+
+var MailServerType = /*#__PURE__*/_createClass(function MailServerType() {
+  _classCallCheck(this, MailServerType);
+
+  this.address = '';
+  this.port = 0;
+});
 
 var ServerSettings = function ServerSettings(_ref) {
   var data = _ref.data;
 
   var _useTranslation = (0,react_i18next__WEBPACK_IMPORTED_MODULE_2__.useTranslation)(),
-      t = _useTranslation.t,
-      i18n = _useTranslation.i18n;
+      t = _useTranslation.t;
 
   return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", Object.assign({
     className: "block w-full border-2 rounded-lg border-blue-600 m-4 p-2 px-4"
@@ -50028,6 +50033,7 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
 
 
 
+
 var serverSettingsDom = react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(document.getElementById('serversettings'));
 var mailboxsettingsDom = react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(document.getElementById('mailboxsettings'));
 
@@ -50274,10 +50280,7 @@ var fetchMailBoxes = function fetchMailBoxes(apitoken) {
 
 var token = window.sessionStorage.getItem('token'); // initial view update
 
-updateServerSettings({
-  address: "",
-  port: 0
-});
+updateServerSettings(new _components_ServerSettings__WEBPACK_IMPORTED_MODULE_6__.MailServerType());
 updateMailBoxSettings(mailBoxData, refreshCredentialCB, addMailBoxCB, deleteMailBoxCB, selectCB); // fetch initial data
 
 fetchServerSettings(token);

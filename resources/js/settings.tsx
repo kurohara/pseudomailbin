@@ -3,11 +3,13 @@ import ReactDOM from 'react-dom/client';
 import './i18n'
 import MailBoxSettings from './components/MailBoxSettings'
 import ServerSetting from './components/ServerSettings'
+import { MailBoxType } from './components/SelectMailBox'
+import { MailServerType } from './components/ServerSettings'
 
 const serverSettingsDom = ReactDOM.createRoot(document.getElementById('serversettings')!)
 const mailboxsettingsDom = ReactDOM.createRoot(document.getElementById('mailboxsettings')!)
 
-const updateMailBoxSettings = (data:{current:string, list: {name: string, username: string, password: string}[]}, refreshCredentialCB:Function, addMailBoxCB:Function, deleteMailBoxCB:Function, selectCB:Function) => {
+const updateMailBoxSettings = (data:{current:string, list: MailBoxType[]}, refreshCredentialCB:Function, addMailBoxCB:Function, deleteMailBoxCB:Function, selectCB:Function) => {
     mailboxsettingsDom.render(
         <React.StrictMode>
             <MailBoxSettings 
@@ -20,7 +22,7 @@ const updateMailBoxSettings = (data:{current:string, list: {name: string, userna
     )
 }
 
-const updateServerSettings = (data:{address:string, port: number}) => {
+const updateServerSettings = (data:MailServerType) => {
     serverSettingsDom.render(
         <React.StrictMode>
             <ServerSetting data={data} />
@@ -29,7 +31,7 @@ const updateServerSettings = (data:{address:string, port: number}) => {
 }
 
 //
-var mailBoxData: {current: string, list:{name:string, id: number, username:string, password:string}[]} = {current: '', list: []}
+var mailBoxData: {current: string, list:MailBoxType[]} = {current: '', list: []}
 
 const refreshCredentialCB = async (finishfunc:Function) => {
     const mbox = mailBoxData.list.find((item) => item.name === mailBoxData.current)!
@@ -82,7 +84,7 @@ const deleteMailBoxCB = async (index:number) => {
     })
     const data = await resp.json()
 
-    var newlist:{name: string, id: number, username: string, password: string}[] = []
+    var newlist:MailBoxType[] = []
     mailBoxData.list.map((item) => {
         if (item.id !== id)
             newlist.push(item)
@@ -111,7 +113,7 @@ const fetchServerSettings = async (apitoken:string) => {
     })
 }
 
-const applyMailBoxList = (list:{name:string, id: number, username: string, password: string}[]) => {
+const applyMailBoxList = (list:MailBoxType[]) => {
     mailBoxData = {...mailBoxData}
     mailBoxData.list = list
     if (mailBoxData.current === '' || mailBoxData.list.find((item) => {item.name === mailBoxData.current}) === undefined) {
@@ -134,10 +136,7 @@ const fetchMailBoxes = async (apitoken:string) => {
 
 const token = window.sessionStorage.getItem('token')
 // initial view update
-updateServerSettings({
-    address: "",
-    port: 0
-})
+updateServerSettings(new MailServerType())
 updateMailBoxSettings(mailBoxData, refreshCredentialCB, addMailBoxCB, deleteMailBoxCB, selectCB)
 
 // fetch initial data

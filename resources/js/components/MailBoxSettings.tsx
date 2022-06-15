@@ -3,23 +3,24 @@ import React, {useState} from 'react'
 import CopyText from './CopyText'
 import SelectWithAdd from './SelectWithAdd'
 import RotateButton from './RotateButton'
+import { MailBoxType } from './SelectMailBox'
 
-const MailBoxSettings = ({data, refreshCredentialCB, addMailBoxCB, deleteMailBoxCB, selectCB}:{data:{current:string, list: {name: string, username: string, password: string}[]}, refreshCredentialCB: Function, addMailBoxCB: Function, deleteMailBoxCB:Function, selectCB: Function}) => {
-    const {t, i18n} = useTranslation()
+const MailBoxSettings = ({data, refreshCredentialCB, addMailBoxCB, deleteMailBoxCB, selectCB}:{data:{current:string, list: MailBoxType[]}, refreshCredentialCB: Function, addMailBoxCB: Function, deleteMailBoxCB:Function, selectCB: Function}) => {
+    const {t} = useTranslation()
     const [rotate, setRotate] = useState(false)
 
     const currentMailBox = data.current
     const mailboxnames = data.list.map((e) => e.name)
     console.log(currentMailBox)
 
-    let credentials = {userID: '', password: ''}
+    var credentials:MailBoxType
 
     if (currentMailBox) {
         const current = data.list.find((value) => value.name === currentMailBox)
 
-        credentials = {userID: current!.username, password: current!.password}
+        credentials = current!
     }
-    console.log(credentials)
+    console.log(credentials!)
 
     const onRefresh = (e:React.MouseEvent) => {
         e.preventDefault()
@@ -33,10 +34,10 @@ const MailBoxSettings = ({data, refreshCredentialCB, addMailBoxCB, deleteMailBox
             <div className="block w-full">
                 <div className="inline-block w-5/6">
                     <div className="inline-block mb-3 mx-3 w-full">
-                        <CopyText id="userid" label={t('UserID')} value={credentials.userID} />
+                        <CopyText id="userid" label={t('UserID')} value={credentials!.username} />
                     </div>
                     <div className="inline-block mb-3 mx-3 w-full" id="password">
-                        <CopyText id="password" label={t('Password')} value={credentials.password} />
+                        <CopyText id="password" label={t('Password')} value={credentials!.password} />
                     </div>
                 </div>
                 <div className="inline-block align-top pb-3 px-3 w-16">

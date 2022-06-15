@@ -1,7 +1,12 @@
-import PropTypes from 'prop-types'
-import React from 'react'
 
-const SelectMailBox = ({list, selectFunc}:{list: {name:string}[], selectFunc:Function}) => {
+export class MailBoxType {
+  id: number = 0;
+  name: string = '';
+  username: string = '';
+  password: string = '';
+}
+
+const SelectMailBox = ({list, selectFunc}:{list: MailBoxType[], selectFunc:Function}) => {
   const onSelect:React.MouseEventHandler<HTMLSelectElement> = (e) => {
     e.preventDefault()
     selectFunc((e.target! as HTMLSelectElement).value)
@@ -17,11 +22,6 @@ const SelectMailBox = ({list, selectFunc}:{list: {name:string}[], selectFunc:Fun
         </form>
     </>
   )
-}
-
-SelectMailBox.propTypes = {
-    list: PropTypes.array.isRequired,
-    selectFunc: PropTypes.func.isRequired,
 }
 
 export default SelectMailBox

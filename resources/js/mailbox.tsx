@@ -2,35 +2,20 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './i18n'
 import Message from './components/Message'
+import {MessageDataType} from './components/Message'
 import SelectMailBox from './components/SelectMailBox'
+import { MailBoxType } from './components/SelectMailBox'
 import MessageList from './components/MessageList'
 
 const domelem = ReactDOM.createRoot(document.getElementById('mailbox')!);
 
-class MessageType {
-    id: number = 0;
-    subject: string = '';
-    from: string = '';
-    to: string = '';
-    datetime: string = '';
-    body: string = '';
-}
-
-class MailBoxType {
-    id: number = 0;
-    name: string = '';
-    username: string = '';
-    password: string = '';
-}
-
 var currentMailBox = 0
 var currentMessage = 0
 var mboxlist:MailBoxType[]=[]
-var messagelist:MessageType[]=[]
-var message: MessageType = new MessageType()
+var messagelist:MessageDataType[]=[]
+var message: MessageDataType = new MessageDataType()
 
 const issueApi = (url:string, method:string, options?:{})  => {
-    options = options ? options : {}
     return fetch(url, {
         method: method,
         headers: {
